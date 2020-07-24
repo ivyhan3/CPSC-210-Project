@@ -1,30 +1,19 @@
-# BC Hikes Info Database
+# UBC Campus Food Tracker
 
-## UBC CPSC 210 Personal Project
+### What will the application do?
+This application will allow the user to keep track of all the UBC food places they
+have been to. They can add new food places they've visited or add the pre-existing 
+food places on the app. Additionally, users can add comments to the places they've been
+to and view food places based on a certain location or cuisine.
 
-*Hello!*
+### Who will use it?
+This application is made for UBC students and staff who wish to keep track of the food places
+they have visited or are searching for a food place to visit based on their preferences. 
 
-My project is a collection of stats and info of the beautiful
-hikes in BC to be easily accessed for those looking for a suitable hike. 
-Based on one's personal factors including their skill level, location,
-and interests, this easy-to-navigate database is made to accommodate all levels of hikers and helps find the 
-perfect hike based on their preferences. As an avid hiker, this project is of particular interest
-to me as I find it tedious to search online for the perfect hike sometimes, with so many options to choose from and many
-factors to consider. I believe that many more people in BC are resorting to hikes as social distancing measures are in 
-place. Thus, I want to create a simple database that contains all the hiking info needed in one place. 
+### User Stories
+- As a user, I want to add a campus food place to my tracker.
+- As a user, I want to add a campus food place to my Favourites.
+- As a user, I want to view a list of all the food places that are of a certain cuisine.
+- As a user, I want to select a campus food place and leave a comment.
 
-What kind of info can I search for with this database?
-- What hikes are in Coquitlam?
-- List the hikes that are under 5km.
-- At which hikes can I spot a Whisky Jack bird?
-
-Let's get started!
-
-####User Stories
-
-- As a user, I want to be able to view a list of hikes in the selected region.
-- As a user, I want to be able to add the hikes I've visited in my collection.
-- As a user, I want to be able to select a hike and place it in my favourites list.
-- As a user, I want to be able to see a list of all the hikes that are within a given trail distance.
-
- 
+~~~~ 
