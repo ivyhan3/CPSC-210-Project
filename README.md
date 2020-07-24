@@ -19,3 +19,12 @@ What kind of info can I search for with this database?
 - At which hikes can I spot a Whisky Jack bird?
 
 Let's get started!
+
+####User Stories
+
+- As a user, I want to be able to view a list of hikes in the selected region.
+- As a user, I want to be able to add the hikes I've visited in my collection.
+- As a user, I want to be able to select a hike and place it in my favourites list.
+- As a user, I want to be able to see a list of all the hikes that are within a given trail distance.
+
+ 
