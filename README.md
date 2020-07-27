@@ -15,6 +15,5 @@ they have visited or are searching for a food place to visit based on their pref
 - As a user, I want to view a list of all the visited campus food places.
 - As a user, I want to view a list of names of all the vegan campus food places. 
 - As a user, I want to select a campus food place and leave a comment.
-- As a user, I want to add my favourite campus food place to a list called Favourites.
 
 ~~~~ 

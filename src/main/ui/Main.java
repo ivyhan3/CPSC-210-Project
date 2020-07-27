@@ -6,6 +6,8 @@ import model.Location;
 
 public class Main {
     public static void main(String[] args) {
+        new CampusFoodApp();
+
         CampusFoodPlace cfp1;
         CampusFoodPlace cfp2;
         CampusFoodPlace cfp3;
