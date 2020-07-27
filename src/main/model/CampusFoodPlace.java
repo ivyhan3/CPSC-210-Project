@@ -33,7 +33,8 @@ public class CampusFoodPlace {
         return cuisineType;
     }
 
-    public  Boolean isVegan() {
-        return veganOption; }
+    public Boolean isVegan() {
+        return veganOption;
+    }
 
 }

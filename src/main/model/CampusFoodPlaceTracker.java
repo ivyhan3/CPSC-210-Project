@@ -27,7 +27,7 @@ public class CampusFoodPlaceTracker {
         return foodPlaces.size();
     }
 
-    // EFFECTS: returns true
+    // EFFECTS: returns true if the campus food place tracker contains the given food place
     public boolean contains(CampusFoodPlace foodPlace) {
         return foodPlaces.contains(foodPlace);
     }
@@ -42,7 +42,6 @@ public class CampusFoodPlaceTracker {
     }
 
 
-    // REQUIRES: at least 1 CampusFoodPlace in the list
     // EFFECTS: returns the last visited campus food place in the list
     public CampusFoodPlace lastVisited() {
         //stub
