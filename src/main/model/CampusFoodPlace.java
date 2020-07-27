@@ -1,23 +1,27 @@
 package model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 // Represents a campus food place with a name, location, cuisine type, and whether there is a vegan option
 public class CampusFoodPlace {
 
-    private String name;
-    private Location campusLocation;
-    private Cuisine cuisineType;
-    private Boolean veganOption;
+    public String name;
+    public String location;
+    public String cuisineType;
+    public Boolean veganOption;
+    public Integer rating;
 
+
+    public CampusFoodPlace() {
+    }
 
     // REQUIRES: name, location, and cuisine have a non-zero length
-    // EFFECTS: constructs a food place on campus with
-    public CampusFoodPlace(String name, Location campusLocation, Cuisine cuisineType, Boolean veganOption) {
+    // EFFECTS: constructs a food place on campus with a name, location, cuisine type, whether there's a
+    // vegan option available, and a rating out of 5
+    public CampusFoodPlace(String name, String location, String cuisineType, Boolean veganOption, Integer rating) {
         this.name = name;
-        this.campusLocation = campusLocation;
+        this.location = location;
         this.cuisineType = cuisineType;
         this.veganOption = veganOption;
+        this.rating = rating;
     }
 
     // getters
@@ -25,16 +29,20 @@ public class CampusFoodPlace {
         return name;
     }
 
-    public Location getCampusLocation() {
-        return campusLocation;
+    public String getLocation() {
+        return location;
     }
 
-    public Cuisine getCuisineType() {
+    public String getCuisineType() {
         return cuisineType;
     }
 
     public Boolean isVegan() {
         return veganOption;
+    }
+
+    public Integer getRating() {
+        return rating;
     }
 
 }

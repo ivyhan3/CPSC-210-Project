@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 // Unit tests for CampusFoodTracker class
 class CampusFoodTrackerTest {
     private CampusFoodPlaceTracker foodPlaces;
-    private CampusFoodPlace cfp1 = new CampusFoodPlace("the Porch", new Location("the Nest"),
-            new Cuisine("Healthy"), true);
-    private CampusFoodPlace cfp2 = new CampusFoodPlace("PacificPoke", new Location("ICICS"),
-            new Cuisine("Asian"), true);
-    private CampusFoodPlace cfp3 = new CampusFoodPlace("Soup Kitchen", new Location("the Nest"),
-            new Cuisine("Western"), false);
+    private CampusFoodPlace cfp1 = new CampusFoodPlace("the Porch", new java.lang.String("the Nest"),
+            new String("Healthy"), true, 5);
+    private CampusFoodPlace cfp2 = new CampusFoodPlace("PacificPoke", new java.lang.String("ICICS"),
+            new String("Asian"), true, 4);
+    private CampusFoodPlace cfp3 = new CampusFoodPlace("Soup Kitchen", new java.lang.String("the Nest"),
+            new String("Western"), false, 3);
 
 
     @BeforeEach
@@ -69,7 +69,7 @@ class CampusFoodTrackerTest {
         foodPlaces.addCampusFood(cfp2);
         foodPlaces.addCampusFood(cfp3);
 
-        ArrayList<String> str = new ArrayList<>();
+        ArrayList<java.lang.String> str = new ArrayList<>();
         str.add("the Porch");
         str.add("PacificPoke");
         str.add("Soup Kitchen");
@@ -83,7 +83,7 @@ class CampusFoodTrackerTest {
         foodPlaces.addCampusFood(cfp1);
         foodPlaces.addCampusFood(cfp1);
 
-        ArrayList<String> str = new ArrayList<>();
+        ArrayList<java.lang.String> str = new ArrayList<>();
         str.add("the Porch");
 
         assertEquals(str, foodPlaces.listOfNames());
@@ -96,7 +96,7 @@ class CampusFoodTrackerTest {
         foodPlaces.addCampusFood(cfp2);
         foodPlaces.addCampusFood(cfp3);
 
-        ArrayList<String> veganPlaces = new ArrayList<>();
+        ArrayList<java.lang.String> veganPlaces = new ArrayList<>();
 
         veganPlaces.add("the Porch");
         veganPlaces.add("PacificPoke");

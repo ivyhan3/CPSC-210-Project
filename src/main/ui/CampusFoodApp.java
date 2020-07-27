@@ -9,9 +9,8 @@ import java.util.Scanner;
 
 // campus food application
 public class CampusFoodApp {
-    private ArrayList<CampusFoodPlaceTracker> trackerLog;
     private Scanner input;
-    private CampusFoodPlace campusFoodPlace;
+    private CampusFoodPlace campusFoodPlace = new CampusFoodPlace();
     private CampusFoodPlaceTracker campusFoodPlaceTracker = new CampusFoodPlaceTracker();
     private static final String PROMPT = "\nWhat else would you like to do?";
 
@@ -38,7 +37,28 @@ public class CampusFoodApp {
                 continueOn = false;
                 closeApp();
             } else {
-                chooseOption();
+                chooseOption(entry);
+            }
+
+        }
+    }
+
+    // EFFECTS: displays the menu
+    private void run() {
+
+        boolean continueOn = true;
+        String entry = null;
+        input = new Scanner(System.in);
+
+        while (continueOn) {
+            displayMenu();
+            entry = input.next();
+
+            if (entry.equals("e")) {
+                continueOn = false;
+                closeApp();
+            } else {
+                chooseOption(entry);
             }
 
         }
@@ -47,8 +67,7 @@ public class CampusFoodApp {
 
     // MODIFIES: this
     // EFFECTS: processes user entry
-    private void chooseOption() {
-        String entry = input.nextLine();
+    private void chooseOption(String entry) {
 
         if (entry.equals("a")) {
             logFoodPlace(campusFoodPlace);
@@ -78,22 +97,28 @@ public class CampusFoodApp {
     // EFFECTS: prompts user to enter name, location, cuisine type, and vegan option of food place
     private void logFoodPlace(CampusFoodPlace campusFoodPlace) {
 
+        input = new Scanner(System.in);
+
         System.out.println("Enter the name of food place");
-        String name = input.nextLine();
+        campusFoodPlace.name = input.nextLine();
 
         System.out.println("Enter the location of food place");
-        String location = input.nextLine();
+        campusFoodPlace.location = input.nextLine();
 
         System.out.println("Enter the cuisine type of food place");
-        String cuisineType = input.nextLine();
+        campusFoodPlace.cuisineType = input.nextLine();
 
-        System.out.println("Does this food place carry vegan options");
-        Boolean veganOption = input.nextBoolean();
+        System.out.println("Does this food place carry vegan options? (Type True = yes False = no)");
+        campusFoodPlace.veganOption = input.nextBoolean();
+
+        System.out.println("What rating would you give out of 5?");
+        campusFoodPlace.rating = input.nextInt();
+
 
         // Adds campus food place to the tracker
         campusFoodPlaceTracker.addCampusFood(campusFoodPlace);
 
-        System.out.println("\"" + campusFoodPlace + "\"" + " has been added to the tracker");
+        System.out.println("\"" + campusFoodPlace.getName() + "\"" + " has been added to the tracker");
     }
 
     // EFFECTS: prints list of visited campus food places on screen
@@ -102,9 +127,9 @@ public class CampusFoodApp {
     }
 
     private void rePrompt(String prompt) {
+        String entry = null;
         System.out.println(prompt);
-        displayMenu();
-        chooseOption();
+        run();
     }
 
     private void closeApp() {
