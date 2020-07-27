@@ -10,7 +10,6 @@ import java.util.Scanner;
 // campus food application
 public class CampusFoodApp {
     private Scanner input;
-    private CampusFoodPlace campusFoodPlace = new CampusFoodPlace();
     private CampusFoodPlaceTracker campusFoodPlaceTracker = new CampusFoodPlaceTracker();
     private static final String PROMPT = "\nWhat else would you like to do?";
 
@@ -70,7 +69,7 @@ public class CampusFoodApp {
     private void chooseOption(String entry) {
 
         if (entry.equals("a")) {
-            logFoodPlace(campusFoodPlace);
+            logFoodPlace();
             rePrompt(PROMPT);
 
         } else if (entry.equals("p")) {
@@ -95,9 +94,11 @@ public class CampusFoodApp {
 
 
     // EFFECTS: prompts user to enter name, location, cuisine type, and vegan option of food place
-    private void logFoodPlace(CampusFoodPlace campusFoodPlace) {
+    private void logFoodPlace() {
 
         input = new Scanner(System.in);
+
+        CampusFoodPlace campusFoodPlace = new CampusFoodPlace();
 
         System.out.println("Enter the name of food place");
         campusFoodPlace.name = input.nextLine();
