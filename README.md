@@ -12,8 +12,9 @@ they have visited or are searching for a food place to visit based on their pref
 
 ### User Stories
 - As a user, I want to add a campus food place to my tracker.
-- As a user, I want to add a campus food place to my Favourites.
-- As a user, I want to view a list of all the food places that are of a certain cuisine.
+- As a user, I want to view a list of all the visited campus food places.
+- As a user, I want to view a list of names of all the vegan campus food places. 
 - As a user, I want to select a campus food place and leave a comment.
+- As a user, I want to add my favourite campus food place to a list called Favourites.
 
 ~~~~ 
