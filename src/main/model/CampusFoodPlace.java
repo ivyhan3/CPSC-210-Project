@@ -38,13 +38,22 @@ public class CampusFoodPlace {
 
     @Override
     public String toString() {
-        return "CampusFoodPlace{" +
-                "name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", cuisineType='" + cuisineType + '\'' +
-                ", veganOption=" + veganOption +
-                ", rating=" + rating +
-                '}';
+        return "CampusFoodPlace{"
+                +
+                "name='"
+                + name
+                + '\''
+                +
+                ", location='"
+                + location
+                + '\''
+                + ", cuisineType='"
+                + cuisineType
+                + '\''
+                + ", veganOption="
+                + veganOption
+                + ", rating="
+                + rating + '}';
     }
 
     public Boolean isVegan() {
