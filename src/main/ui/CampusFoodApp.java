@@ -76,6 +76,15 @@ public class CampusFoodApp {
             printNames();
             rePrompt(PROMPT);
 
+        } else if (entry.equals("v")) {
+            printVeganNames();
+            rePrompt(PROMPT);
+
+        } else if (entry.equals("i")) {
+            printInfo();
+            rePrompt(PROMPT);
+
+
         } else if (entry.equals("e")) {
             closeApp();
 
@@ -88,7 +97,9 @@ public class CampusFoodApp {
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Log food place");
-        System.out.println("\tp -> Print list of visited campus food places");
+        System.out.println("\tp -> Print list of visited campus food place names");
+        System.out.println("\tv -> Print list of vegan campus food places");
+        System.out.println("\ti -> Print list of visited campus food place info");
         System.out.println("\te -> Exit");
     }
 
@@ -98,23 +109,24 @@ public class CampusFoodApp {
 
         input = new Scanner(System.in);
 
-        CampusFoodPlace campusFoodPlace = new CampusFoodPlace();
-
         System.out.println("Enter the name of food place");
-        campusFoodPlace.name = input.nextLine();
+        String name = input.nextLine();
 
         System.out.println("Enter the location of food place");
-        campusFoodPlace.location = input.nextLine();
+        String location = input.nextLine();
 
         System.out.println("Enter the cuisine type of food place");
-        campusFoodPlace.cuisineType = input.nextLine();
+        String cuisineType = input.nextLine();
 
         System.out.println("Does this food place carry vegan options? (Type True = yes False = no)");
-        campusFoodPlace.veganOption = input.nextBoolean();
+        Boolean veganOption = input.nextBoolean();
 
         System.out.println("What rating would you give out of 5?");
-        campusFoodPlace.rating = input.nextInt();
+        Integer rating = input.nextInt();
 
+
+        CampusFoodPlace campusFoodPlace = new CampusFoodPlace(name, location, cuisineType, veganOption,
+                rating);
 
         // Adds campus food place to the tracker
         campusFoodPlaceTracker.addCampusFood(campusFoodPlace);
@@ -126,6 +138,17 @@ public class CampusFoodApp {
     private void printNames() {
         System.out.println(campusFoodPlaceTracker.listOfNames());
     }
+
+    // EFFECTS: prints list of visited campus food places that are vegan
+    private void printVeganNames() {
+        System.out.println(campusFoodPlaceTracker.listOfVeganPlaces());
+    }
+
+    // EFFECTS: prints info of all visited campus food places
+    private void printInfo() {
+        System.out.println(campusFoodPlaceTracker.getCampusFoods());
+    }
+
 
     private void rePrompt(String prompt) {
         String entry = null;

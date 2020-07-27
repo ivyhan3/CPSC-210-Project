@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CampusFoodTrackerTest {
     private CampusFoodPlaceTracker foodPlaces;
     private CampusFoodPlace cfp1 = new CampusFoodPlace("the Porch", new java.lang.String("the Nest"),
-            new String("Healthy"), true, 5);
+            new String("Healthy"), true, -1);
     private CampusFoodPlace cfp2 = new CampusFoodPlace("PacificPoke", new java.lang.String("ICICS"),
-            new String("Asian"), true, 4);
+            new String("Asian"), true, -1);
     private CampusFoodPlace cfp3 = new CampusFoodPlace("Soup Kitchen", new java.lang.String("the Nest"),
-            new String("Western"), false, 3);
+            new String("Western"), false, -1);
 
 
     @BeforeEach
@@ -96,7 +96,7 @@ class CampusFoodTrackerTest {
         foodPlaces.addCampusFood(cfp2);
         foodPlaces.addCampusFood(cfp3);
 
-        ArrayList<java.lang.String> veganPlaces = new ArrayList<>();
+        ArrayList<String> veganPlaces = new ArrayList<>();
 
         veganPlaces.add("the Porch");
         veganPlaces.add("PacificPoke");
@@ -104,6 +104,20 @@ class CampusFoodTrackerTest {
        assertEquals(veganPlaces, foodPlaces.listOfVeganPlaces());
 
     }
+
+    @Test
+    public void testMakeRating() {
+        foodPlaces.addCampusFood(cfp1);
+        foodPlaces.addCampusFood(cfp2);
+        assertTrue(foodPlaces.makeRating(cfp2.getName(), 4));
+        assertEquals(cfp2.getRating(), 4);
+    }
+
+    @Test
+    public void testMakeRatingEmpty() {
+        assertFalse(foodPlaces.makeRating(cfp2.getName(), 4));
+    }
+
 
 
 }

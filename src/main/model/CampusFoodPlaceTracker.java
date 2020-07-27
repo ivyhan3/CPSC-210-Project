@@ -34,7 +34,7 @@ public class CampusFoodPlaceTracker {
 
 
     // MODIFIES: this
-    // EFFECTS: adds a campus food place to the list if it's not already in the CampusFoodTracker
+    // EFFECTS: adds a campus food place to CampusFoodTracker if it is not already there
     public void addCampusFood(CampusFoodPlace foodPlace) {
         if (!contains(foodPlace)) {
             foodPlaces.add(foodPlace);
@@ -71,7 +71,18 @@ public class CampusFoodPlaceTracker {
         return veganPlaces;
     }
 
-
+    // REQUIRES: rating must be from 0-5
+    // MODIFIES: this
+    // EFFECTS: sets the rating if the given name matches the name of CampusFoodPlace
+    public boolean makeRating(String name, Integer rating) {
+        for (CampusFoodPlace s : foodPlaces) {
+            if (s.getName().equals(name)) {
+                s.setRating(rating);
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 

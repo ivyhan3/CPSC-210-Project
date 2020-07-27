@@ -3,15 +3,13 @@ package model;
 // Represents a campus food place with a name, location, cuisine type, and whether there is a vegan option
 public class CampusFoodPlace {
 
-    public String name;
-    public String location;
-    public String cuisineType;
-    public Boolean veganOption;
-    public Integer rating;
+    private String name;
+    private String location;
+    private String cuisineType;
+    private Boolean veganOption;
+    private Integer rating;
 
 
-    public CampusFoodPlace() {
-    }
 
     // REQUIRES: name, location, and cuisine have a non-zero length
     // EFFECTS: constructs a food place on campus with a name, location, cuisine type, whether there's a
@@ -37,6 +35,17 @@ public class CampusFoodPlace {
         return cuisineType;
     }
 
+    @Override
+    public String toString() {
+        return "CampusFoodPlace{" +
+                "name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", cuisineType='" + cuisineType + '\'' +
+                ", veganOption=" + veganOption +
+                ", rating=" + rating +
+                '}';
+    }
+
     public Boolean isVegan() {
         return veganOption;
     }
@@ -44,5 +53,11 @@ public class CampusFoodPlace {
     public Integer getRating() {
         return rating;
     }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+
 
 }
