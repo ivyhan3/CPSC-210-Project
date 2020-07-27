@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.NotProperRating;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,10 +73,9 @@ public class CampusFoodPlaceTracker {
         return veganPlaces;
     }
 
-    // REQUIRES: rating must be from 0-5
     // MODIFIES: this
     // EFFECTS: sets the rating if the given name matches the name of CampusFoodPlace
-    public boolean makeRating(String name, Integer rating) {
+    public boolean makeRating(String name, Integer rating) throws NotProperRating {
         for (CampusFoodPlace s : foodPlaces) {
             if (s.getName().equals(name)) {
                 s.setRating(rating);

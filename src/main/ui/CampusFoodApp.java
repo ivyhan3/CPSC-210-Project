@@ -4,6 +4,7 @@ import model.CampusFoodPlace;
 import model.CampusFoodPlaceTracker;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -120,6 +121,9 @@ public class CampusFoodApp {
 
         System.out.println("Does this food place carry vegan options? (Type True = yes False = no)");
         Boolean veganOption = input.nextBoolean();
+//        if (input != true || false) {
+//            throw new InputMismatchException;
+//        }
 
         System.out.println("What rating would you give out of 5?");
         Integer rating = input.nextInt();

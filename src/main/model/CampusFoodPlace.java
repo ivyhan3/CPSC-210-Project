@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.NotProperRating;
+
 // Represents a campus food place with a name, location, cuisine type, and whether there is a vegan option
 public class CampusFoodPlace {
 
@@ -8,7 +10,6 @@ public class CampusFoodPlace {
     private String cuisineType;
     private Boolean veganOption;
     private Integer rating;
-
 
 
     // REQUIRES: name, location, and cuisine have a non-zero length
@@ -54,10 +55,12 @@ public class CampusFoodPlace {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Integer rating) throws NotProperRating {
+        if (rating < 0 || rating > 5) {
+            throw new NotProperRating();
+        }
         this.rating = rating;
     }
-
 
 
 }
