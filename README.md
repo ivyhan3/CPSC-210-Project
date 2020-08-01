@@ -15,5 +15,7 @@ they have visited or are searching for a food place to visit based on their pref
 - As a user, I want to view a list of all the visited campus food places.
 - As a user, I want to view a list of names of all the vegan campus food places that I've visited. 
 - As a user, I want to select a campus food place and leave a rating out of 5.
+- As a user, I want to be able to save my CampusFoodPlaceTracker to file.
+- As a user, I want to be able to optionally load my CampusFoodPlaceTracker from file when program starts.
 
 ~~~~ 

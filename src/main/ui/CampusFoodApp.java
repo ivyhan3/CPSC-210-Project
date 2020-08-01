@@ -120,14 +120,29 @@ public class CampusFoodApp {
         String cuisineType = input.nextLine();
 
         System.out.println("Does this food place carry vegan options? (Type True = yes False = no)");
-        Boolean veganOption = input.nextBoolean();
-//        if (input != true || false) {
-//            throw new InputMismatchException;
-//        }
+        Boolean veganOption = null;
+        while (true) {
+            try {
+                veganOption = input.nextBoolean();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid input");
+                break;
+            }
+        }
 
         System.out.println("What rating would you give out of 5?");
-        Integer rating = input.nextInt();
-
+        Integer rating = null;
+        int i = 0;
+        while (0 <= i || i <= 5) {
+            try {
+                rating = input.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a number between 0 to 5.");
+                break;
+            }
+        }
 
         CampusFoodPlace campusFoodPlace = new CampusFoodPlace(name, location, cuisineType, veganOption,
                 rating);
