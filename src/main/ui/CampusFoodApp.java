@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.NotProperRating;
 import model.CampusFoodPlace;
 import model.CampusFoodPlaceTracker;
 
@@ -120,14 +121,15 @@ public class CampusFoodApp {
         String cuisineType = input.nextLine();
 
         System.out.println("Does this food place carry vegan options? (Type True = yes False = no)");
-        Boolean veganOption = null;
+        Boolean veganOption;
         while (true) {
             try {
                 veganOption = input.nextBoolean();
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("Please enter a valid input");
-                break;
+                System.out.println("Please enter True or False! ");
+                input.next();
+                continue;
             }
         }
 
@@ -138,9 +140,14 @@ public class CampusFoodApp {
             try {
                 rating = input.nextInt();
                 break;
-            } catch (InputMismatchException e) {
+            }
+//            catch (NotProperRating npr) {
+//                System.out.println("Please enter a number between 0 to 5.");
+//            }
+            catch (InputMismatchException e) {
                 System.out.println("Please enter a number between 0 to 5.");
-                break;
+                input.next();
+                continue;
             }
         }
 
