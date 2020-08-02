@@ -1,0 +1,2 @@
+the Porch,the Nest,healthy,true,5
+Subway,Life Building,fast food,false,1

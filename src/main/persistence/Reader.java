@@ -13,7 +13,7 @@ import java.util.List;
  * Representation of Reader
  */
 
-
+// A reader that can read account data from a file
 public class Reader {
     public static final String DELIMITER = ",";
 
@@ -26,17 +26,17 @@ public class Reader {
 
     // EFFECTS: returns content of file as a list of strings, each string
     // containing the content of one row of the file
-    public static List<String> readFile(File file) throws IOException {
+    private static List<String> readFile(File file) throws IOException {
         return Files.readAllLines(file.toPath());
     }
 
     // EFFECTS: returns a list of campus food places parsed from list of strings
     // where each string contains data for one campus food place
-    static List<CampusFoodPlace> parseContent(List<String> fileContent) {
+    private static List<CampusFoodPlace> parseContent(List<String> fileContent) {
         List<CampusFoodPlace> foodPlaces = new ArrayList<>();
 
         for (String line : fileContent) {
-            ArrayList<String> lineComponents = (ArrayList<String>) splitString(line);
+            ArrayList<String> lineComponents = splitString(line);
             foodPlaces.add(parseCampusFoodPlace(lineComponents));
         }
 
@@ -44,17 +44,16 @@ public class Reader {
     }
 
     // EFFECTS: returns a list of strings obtained by splitting line on DELIMITER
-    public static List<String> splitString(String line) {
+    private static ArrayList<String> splitString(String line) {
         String[] splits = line.split(DELIMITER);
         return new ArrayList<>(Arrays.asList(splits));
     }
-
 
     // REQUIRES: components has size 5 where element 0 represents the
     // name of campus food place, element 1 represents location, elements 2 represents the type of cuisine,
     // element 3 represents whether the food place is vegan, and element 4 represents the rating of the food place
     // EFFECTS: returns a campus food place constructed from components
-    public static CampusFoodPlace parseCampusFoodPlace(List<String> components) {
+    private static CampusFoodPlace parseCampusFoodPlace(List<String> components) {
         String name = components.get(0);
         String location = components.get(1);
         String cuisineType = components.get(2);

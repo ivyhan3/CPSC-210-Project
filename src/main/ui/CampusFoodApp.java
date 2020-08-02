@@ -3,9 +3,16 @@ package ui;
 import exceptions.NotProperRating;
 import model.CampusFoodPlace;
 import model.CampusFoodPlaceTracker;
+import persistence.Reader;
+import persistence.Writer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -14,6 +21,8 @@ public class CampusFoodApp {
     private Scanner input;
     private CampusFoodPlaceTracker campusFoodPlaceTracker = new CampusFoodPlaceTracker();
     private static final String PROMPT = "\nWhat else would you like to do?";
+    private CampusFoodPlace visitedPlaces;
+    private static final String TRACKER_FILE = "./data/accounts.txt";
 
     // EFFECTS: runs the food application
     public CampusFoodApp() {
@@ -64,6 +73,33 @@ public class CampusFoodApp {
 
         }
     }
+
+//    // MODIFIES: this
+//    // EFFECTS: loads tracker from TRACKER_FILE, if that file exists;
+//    // otherwise initializes tracker with default values
+//    private void loadTracker() {
+//        try {
+//            List<CampusFoodPlace> foodPlaces = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
+//            visitedPlaces = foodPlaces.get(0);
+//        } catch (IOException e) {
+//        }
+//    }
+
+    // EFFECTS: saves state of visited CampusFoodPlaces to TRACKER_FILE
+    private void saveVisitedPlaces() {
+        try {
+            Writer writer = new Writer(new File(TRACKER_FILE));
+            writer.write(visitedPlaces);
+            writer.close();
+            System.out.println("Food places saved to file " + TRACKER_FILE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save food places to " + TRACKER_FILE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // this is due to a programming error
+        }
+    }
+
 
 
     // MODIFIES: this
