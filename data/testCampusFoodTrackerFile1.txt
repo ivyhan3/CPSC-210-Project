@@ -1,4 +1,0 @@
-the Porch,the Nest,healthy,true,5
-Subway,Life Building,fast food,false,4
-the Point Grill,Marine Drive,comfort food,true,3
-

@@ -1,9 +1,13 @@
 package model;
 
 import exceptions.NotProperRating;
+import persistence.Reader;
+import persistence.Saveable;
+
+import java.io.PrintWriter;
 
 // Represents a campus food place with a name, location, cuisine type, and whether there is a vegan option
-public class CampusFoodPlace {
+public class CampusFoodPlace implements Saveable {
 
     private String name;
     private String location;
@@ -72,4 +76,16 @@ public class CampusFoodPlace {
     }
 
 
+    @Override
+    public void save(PrintWriter printWriter) {
+        printWriter.print(name);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(location);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(cuisineType);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.println(veganOption);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(rating);
+    }
 }

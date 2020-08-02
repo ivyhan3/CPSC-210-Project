@@ -1,0 +1,2 @@
+the Point,Marine Dr,comfort food,false,3
+JamJar,Bus Loop,Lebanese,true,5
