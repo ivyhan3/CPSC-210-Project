@@ -21,8 +21,8 @@ public class CampusFoodApp {
     private Scanner input;
     private CampusFoodPlaceTracker campusFoodPlaceTracker = new CampusFoodPlaceTracker();
     private static final String PROMPT = "\nWhat else would you like to do?";
-    private CampusFoodPlace visitedPlaces;
-    private static final String TRACKER_FILE = "./data/accounts.txt";
+    private CampusFoodPlace visitedPlace;
+    private static final String TRACKER_FILE = "./data/visitedFoodPlaces.txt";
 
     // EFFECTS: runs the food application
     public CampusFoodApp() {
@@ -35,6 +35,8 @@ public class CampusFoodApp {
         boolean continueOn = true;
         String entry = null;
         input = new Scanner(System.in);
+
+        loadTracker();
 
         System.out.println("Welcome to the UBC Campus Food App! ");
         System.out.println("What would you like to do today?");
@@ -74,26 +76,34 @@ public class CampusFoodApp {
         }
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: loads tracker from TRACKER_FILE, if that file exists;
-//    // otherwise initializes tracker with default values
-//    private void loadTracker() {
-//        try {
-//            List<CampusFoodPlace> foodPlaces = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
-//            visitedPlaces = foodPlaces.get(0);
-//        } catch (IOException e) {
-//        }
-//    }
+    // MODIFIES: this
+    // EFFECTS: initializes visited food places
+    private void init() {
+        visitedPlace = new CampusFoodPlace("Tim Hortons", "Main Mall", "cafe",
+                false, 3);
+    }
 
-    // EFFECTS: saves state of visited CampusFoodPlaces to TRACKER_FILE
+    // MODIFIES: this
+    // EFFECTS: loads tracker from TRACKER_FILE, if that file exists;
+    // otherwise initializes tracker with default values
+    private void loadTracker() {
+        try {
+            List<CampusFoodPlace> foodPlaces = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
+            visitedPlace = foodPlaces.get(0);
+        } catch (IOException e) {
+            init();
+        }
+    }
+
+    // EFFECTS: saves new visited CampusFoodPlace to TRACKER_FILE
     private void saveVisitedPlaces() {
         try {
             Writer writer = new Writer(new File(TRACKER_FILE));
-            writer.write(visitedPlaces);
+            writer.write(visitedPlace);
             writer.close();
-            System.out.println("Food places saved to file " + TRACKER_FILE);
+            System.out.println("Food place saved to file " + TRACKER_FILE);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to save food places to " + TRACKER_FILE);
+            System.out.println("Unable to save food place to " + TRACKER_FILE);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             // this is due to a programming error
@@ -122,6 +132,9 @@ public class CampusFoodApp {
             printInfo();
             rePrompt(PROMPT);
 
+        } else if (entry.equals("s")) {
+            saveVisitedPlaces();
+
 
         } else if (entry.equals("e")) {
             closeApp();
@@ -138,6 +151,7 @@ public class CampusFoodApp {
         System.out.println("\tp -> Print list of visited campus food place names");
         System.out.println("\tv -> Print list of vegan campus food places");
         System.out.println("\ti -> Print list of visited campus food place info");
+        System.out.println("\ts -> Save visited campus food place to file");
         System.out.println("\te -> Exit");
     }
 
