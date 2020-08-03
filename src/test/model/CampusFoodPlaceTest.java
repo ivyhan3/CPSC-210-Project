@@ -25,4 +25,12 @@ public class CampusFoodPlaceTest {
         assertTrue(campusFoodPlace.isVegan());
         assertEquals(4, campusFoodPlace.getRating());
     }
+
+    @Test
+    void testToString() {
+        assertEquals
+                (" name = Starbucks, location = Life Building,  cuisineType = cafe,  " +
+                        "veganOption = true, rating = 4", campusFoodPlace.toString());
+    }
+
 }

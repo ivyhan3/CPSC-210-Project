@@ -49,10 +49,8 @@ public class CampusFoodPlace implements Saveable {
         return rating;
     }
 
-    public void setRating(Integer rating) throws NotProperRating {
-        if (rating < 0 || rating > 5) {
-            throw new NotProperRating();
-        }
+    //setter
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
