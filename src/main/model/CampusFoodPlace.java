@@ -73,8 +73,8 @@ public class CampusFoodPlace implements Saveable {
         printWriter.print(Reader.DELIMITER);
         printWriter.print(cuisineType);
         printWriter.print(Reader.DELIMITER);
-        printWriter.println(veganOption);
+        printWriter.print(veganOption);
         printWriter.print(Reader.DELIMITER);
-        printWriter.print(rating);
+        printWriter.println(rating);
     }
 }

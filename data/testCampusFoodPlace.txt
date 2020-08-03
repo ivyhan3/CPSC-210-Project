@@ -1,3 +1,2 @@
-PacificPoke,ICICS,Asian,true
-,5Soup Kitchen,the Nest,Western,false
-,2
+PacificPoke,ICICS,Asian,true,5
+Soup Kitchen,the Nest,Western,false,2
