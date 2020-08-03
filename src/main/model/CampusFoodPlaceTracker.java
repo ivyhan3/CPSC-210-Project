@@ -6,6 +6,7 @@ import persistence.Saveable;
 import java.util.ArrayList;
 import java.util.List;
 
+// represents a tracker that contains campus food places
 public class CampusFoodPlaceTracker {
     private List<CampusFoodPlace> foodPlaces;
     CampusFoodPlace cfp1;

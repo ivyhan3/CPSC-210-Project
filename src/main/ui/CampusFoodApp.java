@@ -16,14 +16,13 @@ import java.util.List;
 import java.util.Scanner;
 
 
-// campus food application
+// campus food application where user can log campus food places they've been to
 public class CampusFoodApp {
     private Scanner input;
-    private CampusFoodPlaceTracker campusFoodPlaceTracker = new CampusFoodPlaceTracker();
+    private CampusFoodPlaceTracker campusFoodPlaceTracker;
     private static final String PROMPT = "\nWhat else would you like to do?";
     private CampusFoodPlace visitedPlace;
-    private CampusFoodPlaceTracker allVisitedPlaces;
-    private static final String TRACKER_FILE = "./data/visitedFoodPlaces.txt";
+    private static final String TRACKER_FILE = "./data/tracker.txt";
 
     // EFFECTS: runs the food application
     public CampusFoodApp() {
@@ -80,8 +79,7 @@ public class CampusFoodApp {
     // MODIFIES: this
     // EFFECTS: initializes visited food places
     private void init() {
-        visitedPlace = new CampusFoodPlace("Tims", "Main Mall", "cafe",
-                false, 3);
+        campusFoodPlaceTracker = new CampusFoodPlaceTracker();
     }
 
     // MODIFIES: this
@@ -89,22 +87,28 @@ public class CampusFoodApp {
     // otherwise initializes tracker with default values
     private void loadTracker() {
         try {
-            List<CampusFoodPlace> foodPlaces = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
-            visitedPlace = foodPlaces.get(0);
+            List<CampusFoodPlace> tracker = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
+            init();
+            for (int i = 0; i < tracker.size(); i++) {
+                campusFoodPlaceTracker.addCampusFood(tracker.get(i));
+            }
+
         } catch (IOException e) {
             init();
         }
     }
 
-    // EFFECTS: saves new visited CampusFoodPlace to TRACKER_FILE
+    // EFFECTS: saves all visited Campus Food Places to TRACKER_FILE
     private void saveVisitedPlaces() {
         try {
-            Writer writer = new Writer(new File(TRACKER_FILE));
-            writer.write(visitedPlace);
-            writer.close();
-            System.out.println("Food place saved to file " + TRACKER_FILE);
+            for (CampusFoodPlace cfp : this.campusFoodPlaceTracker.getCampusFoods()) {
+                Writer writer = new Writer(new File(TRACKER_FILE));
+                writer.write(cfp);
+                writer.close();
+                System.out.println("Food places saved to file " + TRACKER_FILE);
+            }
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to save food place to " + TRACKER_FILE);
+            System.out.println("Unable to save food places to " + TRACKER_FILE);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             // this is due to a programming error
@@ -183,7 +187,7 @@ public class CampusFoodApp {
             }
         }
 
-  //      System.out.println("What rating would you give out of 5?");
+        System.out.println("What rating would you give out of 5?");
         Integer rating = input.nextInt();
 
 //        System.out.println("What rating would you give out of 5?");
@@ -204,7 +208,7 @@ public class CampusFoodApp {
 
         campusFoodPlaceTracker.addCampusFood(campusFoodPlace);
 
-  //      System.out.println("\"" + campusFoodPlace.getName() + "\"" + " has been added to the tracker");
+      System.out.println("\"" + campusFoodPlace.getName() + "\"" + " has been added to the tracker");
     }
 
     // EFFECTS: prints list of visited campus food places on screen
