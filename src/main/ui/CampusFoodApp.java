@@ -159,7 +159,6 @@ public class CampusFoodApp {
 
 
     // EFFECTS: prompts user to enter name, location, cuisine type, and vegan option of food place
-    @SuppressWarnings("checkstyle:MethodLength")
     private void logFoodPlace() {
         input = new Scanner(System.in);
 
@@ -173,30 +172,35 @@ public class CampusFoodApp {
         String cuisineType = input.nextLine();
 
         System.out.println("Does this food place carry vegan options? (Type True = yes False = no)");
-        Boolean veganOption;
-        while (true) {
-            try {
-                veganOption = input.nextBoolean();
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter True or False! ");
-                input.next();
-                continue;
-            }
-        }
+        Boolean veganOption = input.nextBoolean();
 
+//        System.out.println("Does this food place carry vegan options? (Type True = yes False = no)");
+//        Boolean veganOption;
+//        while (true) {
+//            try {
+//                veganOption = input.nextBoolean();
+//                break;
+//            } catch (InputMismatchException e) {
+//                System.out.println("Please enter True or False! ");
+//                input.next();
+//                continue;
+//            }
+//        }
         System.out.println("What rating would you give out of 5?");
-        int rating;
-        while (true) {
-            try {
-                rating = input.nextInt();
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a number between 0 to 5.");
-                input.next();
-                continue;
-            }
-        }
+        int rating = input.nextInt();
+
+//        System.out.println("What rating would you give out of 5?");
+//        int rating;
+//        while (true) {
+//            try {
+//                rating = input.nextInt();
+//                break;
+//            } catch (InputMismatchException e) {
+//                System.out.println("Please enter a number between 0 to 5.");
+//                input.next();
+//                continue;
+//            }
+//        }
         CampusFoodPlace campusFoodPlace = new CampusFoodPlace(name, location, cuisineType, veganOption,
                 rating);
         campusFoodPlaceTracker.addCampusFood(campusFoodPlace);
