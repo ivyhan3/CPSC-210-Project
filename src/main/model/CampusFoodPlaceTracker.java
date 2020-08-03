@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.NotProperRating;
+import persistence.Saveable;
 
 import java.util.ArrayList;
 import java.util.List;

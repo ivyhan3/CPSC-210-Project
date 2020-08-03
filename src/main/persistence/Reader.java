@@ -10,8 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Representation of Reader
+ * Credit: TellerApp (AccountNotRobust) CPSC 210.
  */
+
 
 // A reader that can read account data from a file
 public class Reader {

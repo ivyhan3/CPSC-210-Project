@@ -22,6 +22,7 @@ public class CampusFoodApp {
     private CampusFoodPlaceTracker campusFoodPlaceTracker = new CampusFoodPlaceTracker();
     private static final String PROMPT = "\nWhat else would you like to do?";
     private CampusFoodPlace visitedPlace;
+    private CampusFoodPlaceTracker allVisitedPlaces;
     private static final String TRACKER_FILE = "./data/visitedFoodPlaces.txt";
 
     // EFFECTS: runs the food application
@@ -79,7 +80,7 @@ public class CampusFoodApp {
     // MODIFIES: this
     // EFFECTS: initializes visited food places
     private void init() {
-        visitedPlace = new CampusFoodPlace("Tim Hortons", "Main Mall", "cafe",
+        visitedPlace = new CampusFoodPlace("Tims", "Main Mall", "cafe",
                 false, 3);
     }
 
@@ -151,7 +152,7 @@ public class CampusFoodApp {
         System.out.println("\tp -> Print list of visited campus food place names");
         System.out.println("\tv -> Print list of vegan campus food places");
         System.out.println("\ti -> Print list of visited campus food place info");
-        System.out.println("\ts -> Save visited campus food place to file");
+        System.out.println("\ts -> Save visited campus food places to file");
         System.out.println("\te -> Exit");
     }
 

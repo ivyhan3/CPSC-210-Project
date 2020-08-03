@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * Credit: TellerApp (AccountNotRobust) CPSC 210.
+ */
+
 // A writer that can write account data to a file
 public class Writer {
     private PrintWriter printWriter;
