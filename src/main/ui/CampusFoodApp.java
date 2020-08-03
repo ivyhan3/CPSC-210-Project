@@ -114,7 +114,6 @@ public class CampusFoodApp {
     }
 
 
-
     // MODIFIES: this
     // EFFECTS: processes user entry
     private void chooseOption(String entry) {
@@ -160,6 +159,7 @@ public class CampusFoodApp {
 
 
     // EFFECTS: prompts user to enter name, location, cuisine type, and vegan option of food place
+    @SuppressWarnings("checkstyle:MethodLength")
     private void logFoodPlace() {
         input = new Scanner(System.in);
 
@@ -186,28 +186,23 @@ public class CampusFoodApp {
         }
 
         System.out.println("What rating would you give out of 5?");
-        int rating = input.nextInt();
-
-//        System.out.println("What rating would you give out of 5?");
-//        Integer rating = null;
-//        int i = 0;
-//        while (0 <= i || i <= 5) {
-//            try {
-//                rating = input.nextInt();
-//                break;
-//            } catch (InputMismatchException e) {
-//                System.out.println("Please enter a number between 0 to 5.");
-//                input.next();
-//                continue;
-//            }
-//        }
+        int rating;
+        while (true) {
+            try {
+                rating = input.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a number between 0 to 5.");
+                input.next();
+                continue;
+            }
+        }
         CampusFoodPlace campusFoodPlace = new CampusFoodPlace(name, location, cuisineType, veganOption,
                 rating);
-
         campusFoodPlaceTracker.addCampusFood(campusFoodPlace);
-
-      System.out.println("\"" + campusFoodPlace.getName() + "\"" + " has been added to the tracker");
+        System.out.println("\"" + campusFoodPlace.getName() + "\"" + " has been added to the tracker");
     }
+
 
     // EFFECTS: prints list of visited campus food places on screen
     private void printNames() {
