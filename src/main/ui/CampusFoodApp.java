@@ -188,7 +188,7 @@ public class CampusFoodApp {
         }
 
         System.out.println("What rating would you give out of 5?");
-        Integer rating = input.nextInt();
+        int rating = input.nextInt();
 
 //        System.out.println("What rating would you give out of 5?");
 //        Integer rating = null;

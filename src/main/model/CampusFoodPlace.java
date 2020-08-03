@@ -13,13 +13,13 @@ public class CampusFoodPlace implements Saveable {
     private String location;
     private String cuisineType;
     private Boolean veganOption;
-    private Integer rating;
+    private int rating;
 
 
     // REQUIRES: name, location, and cuisine have a non-zero length
     // EFFECTS: constructs a food place on campus with a name, location, cuisine type, whether there's a
     // vegan option available, and a rating out of 5
-    public CampusFoodPlace(String name, String location, String cuisineType, Boolean veganOption, Integer rating) {
+    public CampusFoodPlace(String name, String location, String cuisineType, Boolean veganOption, int rating) {
         this.name = name;
         this.location = location;
         this.cuisineType = cuisineType;
@@ -40,31 +40,12 @@ public class CampusFoodPlace implements Saveable {
         return cuisineType;
     }
 
-    @Override
-    public String toString() {
-        return "CampusFoodPlace{"
-                +
-                "name='"
-                + name
-                + '\''
-                +
-                ", location='"
-                + location
-                + '\''
-                + ", cuisineType='"
-                + cuisineType
-                + '\''
-                + ", veganOption="
-                + veganOption
-                + ", rating="
-                + rating + '}';
-    }
 
     public Boolean isVegan() {
         return veganOption;
     }
 
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
@@ -75,6 +56,14 @@ public class CampusFoodPlace implements Saveable {
         this.rating = rating;
     }
 
+
+    // EFFECTS: returns a string representation of a Campus Food Place
+    @Override
+    public String toString() {
+        return " name = " + name + ", location = " + location + ", "
+                + " cuisineType = " + cuisineType + ", " + " veganOption = " + veganOption
+                + ", rating = " + rating + "";
+    }
 
     @Override
     public void save(PrintWriter printWriter) {
