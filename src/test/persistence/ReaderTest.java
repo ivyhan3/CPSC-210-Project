@@ -1,6 +1,7 @@
 package persistence;
 
 import model.CampusFoodPlace;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -10,7 +11,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+
 public class ReaderTest {
+
+    private Reader testReader;
+
+    @BeforeEach
+    void runBefore() {
+        testReader = new Reader();
+    }
 
     @Test
     void testParseCampusFoodPlaceFile1() {

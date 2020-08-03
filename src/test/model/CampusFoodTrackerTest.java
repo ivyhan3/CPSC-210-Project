@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.NotProperRating;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -107,7 +106,7 @@ class CampusFoodTrackerTest {
     }
 
     @Test
-    public void testMakeRating() throws NotProperRating {
+    public void testMakeRating() {
         foodPlaces.addCampusFood(cfp1);
         foodPlaces.addCampusFood(cfp2);
         assertTrue(foodPlaces.makeRating(cfp2.getName(), 4));
@@ -115,7 +114,7 @@ class CampusFoodTrackerTest {
     }
 
     @Test
-    public void testMakeRatingEmpty() throws NotProperRating {
+    public void testMakeRatingEmpty() {
         assertFalse(foodPlaces.makeRating(cfp2.getName(), 4));
     }
 

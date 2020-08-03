@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.NotProperRating;
+
 import persistence.Reader;
 import persistence.Saveable;
 

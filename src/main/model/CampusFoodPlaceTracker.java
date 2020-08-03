@@ -1,6 +1,5 @@
 package model;
 
-import exceptions.NotProperRating;
 import persistence.Saveable;
 
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ public class CampusFoodPlaceTracker {
 
     // MODIFIES: this
     // EFFECTS: sets the rating if the given name matches the name of CampusFoodPlace
-    public boolean makeRating(String name, Integer rating) throws NotProperRating {
+    public boolean makeRating(String name, Integer rating) {
         for (CampusFoodPlace s : foodPlaces) {
             if (s.getName().equals(name)) {
                 s.setRating(rating);
