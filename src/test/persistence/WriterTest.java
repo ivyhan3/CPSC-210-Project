@@ -23,9 +23,6 @@ public class WriterTest {
     @BeforeEach
     void runBefore() throws FileNotFoundException, UnsupportedEncodingException {
         testWriter = new Writer(new File(TEST_FILE));
-//        campusFoodPlaceTracker = new CampusFoodPlaceTracker();
-//        campusFoodPlaceTracker.addCampusFood(cfp1);
-//        campusFoodPlaceTracker.addCampusFood(cfp2);
          cfp1 = new CampusFoodPlace("PacificPoke", "ICICS",
                 "Asian", true, 5);
          cfp2 =  new CampusFoodPlace("Soup Kitchen", "the Nest", "Western",

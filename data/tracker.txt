@@ -2,3 +2,5 @@ Tims,Nest,cafe,true,3
 Sub,asdf,asfd,false,3
 Tims,Life,cafe,true,3
 Subway,Nest,adsf,true,3
+Starbucks,Life,cafe,false,4
+safsd,sdf,sfd,true,3
