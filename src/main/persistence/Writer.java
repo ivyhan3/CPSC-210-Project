@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
  * Credit: TellerApp (AccountNotRobust) CPSC 210.
  */
 
-// A writer that can write account data to a file
+// A writer that can write food place data to a file
 public class Writer {
     private PrintWriter printWriter;
 

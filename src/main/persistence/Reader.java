@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 
-// A reader that can read account data from a file
+// A reader that can read campus food places from a file
 public class Reader {
     public static final String DELIMITER = ",";
 

@@ -4,3 +4,6 @@ Tims,Life,cafe,true,3
 Subway,Nest,adsf,true,3
 Starbucks,Life,cafe,false,4
 safsd,sdf,sfd,true,3
+Subway,Life,fast food,true,3
+Rain or Shine,bus loop,ice cream,true,2
+Subway,Life,fastfood,false,3

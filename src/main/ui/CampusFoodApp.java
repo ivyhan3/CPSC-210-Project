@@ -5,6 +5,7 @@ import model.CampusFoodPlaceTracker;
 import persistence.Reader;
 import persistence.Writer;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,12 +19,19 @@ import java.util.Scanner;
 public class CampusFoodApp {
     private Scanner input;
     private CampusFoodPlaceTracker campusFoodPlaceTracker;
-    private static final String PROMPT = "\nWhat else would you like to do?";
     private CampusFoodPlace campusFoodPlace;
+    private static final String PROMPT = "\nWhat else would you like to do?";
     private static final String TRACKER_FILE = "./data/tracker.txt";
+    private TrackerPanel trackerPanel;
+    private JFrame frame;
 
     // EFFECTS: runs the food application
     public CampusFoodApp() {
+        trackerPanel = new TrackerPanel();
+        JFrame frame = new JFrame("UBC Campus Food App");
+        frame.setSize(500, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
         runGreeter();
     }
 
@@ -77,6 +85,7 @@ public class CampusFoodApp {
     // MODIFIES: this
     // EFFECTS: initializes tracker
     private void init() {
+        trackerPanel = new TrackerPanel();
         campusFoodPlaceTracker = new CampusFoodPlaceTracker();
         loadTracker();
     }
