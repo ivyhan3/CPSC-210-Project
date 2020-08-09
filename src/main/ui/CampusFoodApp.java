@@ -5,7 +5,9 @@ import model.CampusFoodPlaceTracker;
 import persistence.Reader;
 import persistence.Writer;
 
+import javax.sound.midi.Track;
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,17 +25,23 @@ public class CampusFoodApp {
     private static final String PROMPT = "\nWhat else would you like to do?";
     private static final String TRACKER_FILE = "./data/tracker.txt";
     private TrackerPanel trackerPanel;
-    private JFrame frame;
+    private Tracker tracker;
+    private MainFrame frame;
+    private JTextArea textArea;
+    private Container container;
+
 
     // EFFECTS: runs the food application
     public CampusFoodApp() {
-        trackerPanel = new TrackerPanel();
-        JFrame frame = new JFrame("UBC Campus Food App");
+
+        frame = new MainFrame("UBC Campus Food App");
         frame.setSize(500, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        createPanels();
         frame.setVisible(true);
-        runGreeter();
+//        runGreeter();
     }
+
 
     // EFFECTS: greets the user and displays menu
     private void runGreeter() {
@@ -104,6 +112,16 @@ public class CampusFoodApp {
             init();
         }
     }
+
+    // EFFECTS: create tabs for each panel
+    // MODIFIES: this
+//    private void createPanels() {
+//        init();
+//        JTabbedPane tp = new JTabbedPane();
+//        tp.setBounds(0, 0, 700, 800);
+//        tp.add("Add to your tracker", frame);
+//        frame.add(tp);
+//    }
 
     // EFFECTS: saves all visited Campus Food Places to TRACKER_FILE
     private void saveTracker() {
