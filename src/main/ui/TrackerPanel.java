@@ -272,7 +272,7 @@ public class TrackerPanel extends JPanel {
     public void playSound() {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-                    new File("data/saveButton.wav").getAbsoluteFile());
+                    new File("data/click.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
