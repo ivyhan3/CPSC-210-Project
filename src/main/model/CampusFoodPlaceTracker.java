@@ -85,6 +85,11 @@ public class CampusFoodPlaceTracker {
         }
         return false;
     }
+
+    //EFFECT: returns the food place at given index
+    public CampusFoodPlace getCampusFoodPlace(int index) {
+        return foodPlaces.get(index);
+    }
 }
 
 

@@ -44,6 +44,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CampusFoodApp extends JPanel {
@@ -202,7 +204,7 @@ public class CampusFoodApp extends JPanel {
             tracker = (CampusFoodPlaceTracker) Reader.readCampusFoodPlace(new File(TRACKER_FILE));
 
             for (int i = 0; i < tracker.size(); i++) {
-                tracker.addCampusFood(tracker.lastVisited());
+                tracker.addCampusFood(tracker.getCampusFoodPlace(i));
                 tableModel.addRow(new Object[0]);
                 tableModel.setValueAt(campusFoodPlace.getName(), line, 0);
                 tableModel.setValueAt(campusFoodPlace.getLocation(), line, 1);
@@ -246,6 +248,7 @@ public class CampusFoodApp extends JPanel {
             }
         });
     }
+
 
 
 }
