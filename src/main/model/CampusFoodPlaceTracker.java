@@ -1,12 +1,14 @@
 package model;
 
+import persistence.Reader;
 import persistence.Saveable;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 // represents a tracker that contains campus food places
-public class CampusFoodPlaceTracker {
+public class CampusFoodPlaceTracker implements Saveable {
     private List<CampusFoodPlace> foodPlaces;
     CampusFoodPlace cfp1;
     CampusFoodPlace cfp2;
@@ -89,6 +91,13 @@ public class CampusFoodPlaceTracker {
     //EFFECT: returns the food place at given index
     public CampusFoodPlace getCampusFoodPlace(int index) {
         return foodPlaces.get(index);
+    }
+
+    @Override
+    public void save(PrintWriter printWriter) {
+        for (CampusFoodPlace cfp : foodPlaces) {
+            cfp.save(printWriter);
+        }
     }
 }
 

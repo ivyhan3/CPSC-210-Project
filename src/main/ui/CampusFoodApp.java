@@ -54,12 +54,11 @@ public class CampusFoodApp extends JPanel {
 
     public static final String addString = "Add Food Place";
     public static final String saveString = "Save";
+    public static final String filterString = "Filter";
     public JButton saveBtn;
     public JButton addBtn;
-    public JButton loadBtn;
     public AddListener addListener = new AddListener(this);
     public SaveListener saveListener = new SaveListener(this);
-//    public LoadListener loadListener = new LoadListener(this);
     int line = 0;
     public JTextField name;
     public JTextField location;
@@ -85,9 +84,6 @@ public class CampusFoodApp extends JPanel {
         saveBtn = new JButton(saveString);
         initButton(saveBtn, saveString, saveListener);
 
-//        loadBtn = new JButton("Load");
-//        initButton(loadBtn, "Load", loadListener);
-
         name = initTextField(name);
         location = initTextField(location);
         cuisineType = initTextField(cuisineType);
@@ -103,12 +99,8 @@ public class CampusFoodApp extends JPanel {
         add(tableScrollPane, BorderLayout.EAST);
         add(buttonPanel, BorderLayout.WEST);
 
-
-        // Split panels
-//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, buttonPanel, table);
-//        splitPane.setOneTouchExpandable(false);
-//        splitPane.setDividerLocation(400);
     }
+
 
 
     //MODIFIES: panel
@@ -129,7 +121,6 @@ public class CampusFoodApp extends JPanel {
         panel.add(rating);
         panel.add(addBtn);
         panel.add(saveBtn);
-//        panel.add(loadBtn);
         panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         return panel;
@@ -142,6 +133,7 @@ public class CampusFoodApp extends JPanel {
         field.addActionListener(addListener);
         return field;
     }
+
 
     //MODIFIES: veganCombo
     //EFFECTS: initialize vegan JComboBox
@@ -201,19 +193,22 @@ public class CampusFoodApp extends JPanel {
     //EFFECTS: loads all saved campusFoodPlaces to table
     public void loadFoodPlaces() {
         try {
-            tracker = (CampusFoodPlaceTracker) Reader.readCampusFoodPlace(new File(TRACKER_FILE));
+            List<CampusFoodPlace> foodPlaces = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
+            for (int i = 0; i < foodPlaces.size(); i++) {
+                tracker.addCampusFood(foodPlaces.get(i));
+            }
 
             for (int i = 0; i < tracker.size(); i++) {
-                tracker.addCampusFood(tracker.getCampusFoodPlace(i));
+                CampusFoodPlace cfp = tracker.getCampusFoodPlace(i);
                 tableModel.addRow(new Object[0]);
-                tableModel.setValueAt(campusFoodPlace.getName(), line, 0);
-                tableModel.setValueAt(campusFoodPlace.getLocation(), line, 1);
-                tableModel.setValueAt(campusFoodPlace.getCuisineType(), line, 2);
-                tableModel.setValueAt(campusFoodPlace.isVegan(), line, 3);
-                tableModel.setValueAt(campusFoodPlace.getRating(), line, 4);
+                tableModel.setValueAt(cfp.getName(), line, 0);
+                tableModel.setValueAt(cfp.getLocation(), line, 1);
+                tableModel.setValueAt(cfp.getCuisineType(), line, 2);
+                tableModel.setValueAt(cfp.isVegan(), line, 3);
+                tableModel.setValueAt(cfp.getRating(), line, 4);
                 line = line + 1;
-                JOptionPane.showMessageDialog(null, "File successfully loaded!");
             }
+            JOptionPane.showMessageDialog(null, "File successfully loaded!");
         } catch (IOException e) {
             init();
         }
@@ -234,14 +229,12 @@ public class CampusFoodApp extends JPanel {
 
     }
 
-
     public void setCampusFoodPlace(CampusFoodPlace campusFoodPlace) {
         this.campusFoodPlace = campusFoodPlace;
     }
 
     public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
+        //creating and showing app's GUI
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();

@@ -6,18 +6,16 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-//this class deals with actions when addFood button is triggered
+//adds new Campus Food Place when addBtn is pushed
 class AddListener implements ActionListener {
     private final CampusFoodApp campusFoodApp;
     private boolean alreadyEnabled = false;
 
-    //EFFECTS: initialize addFoodListener
+    //EFFECTS: initialize addListener
     public AddListener(CampusFoodApp campusFoodApp) {
         this.campusFoodApp = campusFoodApp;
     }
