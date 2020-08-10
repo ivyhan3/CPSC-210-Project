@@ -60,7 +60,8 @@ class AddListener implements ActionListener {
         campusFoodApp.tableModel.setValueAt(name, campusFoodApp.line,0);
         campusFoodApp.tableModel.setValueAt(location, campusFoodApp.line,1);
         campusFoodApp.tableModel.setValueAt(cuisineType, campusFoodApp.line,2);
-        campusFoodApp.tableModel.setValueAt((Boolean) campusFoodApp.veganOption.getSelectedItem(), campusFoodApp.line,3);
+        campusFoodApp.tableModel.setValueAt(
+                (Boolean) campusFoodApp.veganOption.getSelectedItem(), campusFoodApp.line,3);
         campusFoodApp.tableModel.setValueAt((int) campusFoodApp.rating.getSelectedItem(), campusFoodApp.line,4);
         campusFoodApp.table.setRowSelectionInterval(campusFoodApp.line, campusFoodApp.line);
         JOptionPane.showMessageDialog(null,name + " has been successfully added!");
