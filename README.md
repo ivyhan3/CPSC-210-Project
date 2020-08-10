@@ -21,11 +21,11 @@ all my lists saved.
 
 ### Instructions for Grader:
 
-- Click the button labelled "Add Food Place" to input and add a new Campus Food Place
+- You can generate the first required event by clicking the button labelled "Add Food Place" to input and add a new Campus Food Place
 to the tracker.
-- Click the button labelled "Save" to save the new Campus Food Place to the tracker.
-- When clicking the "Add Food Place" button, a click sound is made. 
-- Save the state of the app by clicking the "Save" button.
-- The campus food places are automatically loaded onto the tracker upon opening the app.
+- You can generate the second required event by clicking the button labelled "Save" to save the new Campus Food Place to the tracker.
+- You can trigger my audio component by  clicking the "Add Food Place" button. 
+- You can save the state of my application by clicking the "Save" button.
+- You can load the state of my application automatically upon opening the app.
 
 ~~~~ 
