@@ -30,6 +30,7 @@ class AddListener implements ActionListener {
         String cuisineType = campusFoodApp.cuisineType.getText();
         Boolean veganOption = (Boolean) campusFoodApp.veganOption.getSelectedItem();
         int rating = (int) campusFoodApp.rating.getSelectedItem();
+        campusFoodApp.setCampusFoodPlace(new CampusFoodPlace(name, location, cuisineType, veganOption, rating));
         playSound();
 
         if (name.equals("")) {
@@ -42,14 +43,6 @@ class AddListener implements ActionListener {
 
         resetFields();
 
-    }
-
-    //MODIFIES:CampusFoodApp
-    //EFFECTS: reset the text fields
-    private void resetFields() {
-        resetTextField(campusFoodApp.name);
-        resetTextField(campusFoodApp.location);
-        resetTextField(campusFoodApp.cuisineType);
     }
 
     //MODIFIES: CampusFoodApp
@@ -75,16 +68,19 @@ class AddListener implements ActionListener {
         campusFoodApp.table.setRowSelectionInterval(campusFoodApp.line, campusFoodApp.line);
         JOptionPane.showMessageDialog(null,name + " has been successfully added!");
         campusFoodApp.line = campusFoodApp.line + 1;
-
-
     }
 
     //MODIFIES:CampusFoodApp
-    //EFFECTS:reset the text field
-    public void resetTextField(JTextField field) {
-        field.requestFocusInWindow();
-        field.setText("");
+    //EFFECTS: reset the text fields
+    private void resetFields() {
+        campusFoodApp.name.requestFocusInWindow();
+        campusFoodApp.name.setText("");
+        campusFoodApp.location.requestFocusInWindow();
+        campusFoodApp.location.setText("");
+        campusFoodApp.cuisineType.requestFocusInWindow();
+        campusFoodApp.cuisineType.setText("");
     }
+
 
 
     // EFFECTS: plays a sound when user clicks addBtn

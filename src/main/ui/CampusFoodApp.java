@@ -65,6 +65,8 @@ public class CampusFoodApp extends JPanel {
     public static final String TRACKER_FILE = "./data/tracker.txt";
     int line = 0;
 
+
+
     //MODIFIES: this
     //EFFECTS: start the program
     public CampusFoodApp() {
@@ -90,7 +92,7 @@ public class CampusFoodApp extends JPanel {
 
         init();
 
-        //Create a panel that uses FlowLayout.
+        //Create a button panel
         JPanel buttonPanel = new JPanel();
         buttonPanel = addButtons(buttonPanel);
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
@@ -102,6 +104,10 @@ public class CampusFoodApp extends JPanel {
 //        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, buttonPanel, table);
 //        splitPane.setOneTouchExpandable(false);
 //        splitPane.setDividerLocation(400);
+    }
+
+    public void setCampusFoodPlace(CampusFoodPlace campusFoodPlace) {
+        this.campusFoodPlace = campusFoodPlace;
     }
 
     //MODIFIES: panel
@@ -198,12 +204,9 @@ public class CampusFoodApp extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
-        JComponent newContentPane = new CampusFoodApp();
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
-
-
-        //Display the window.
+        JComponent mainPane = new CampusFoodApp();
+        mainPane.setOpaque(true); //content panes must be opaque
+        frame.setContentPane(mainPane);
         frame.pack();
         frame.setVisible(true);
 
