@@ -40,7 +40,6 @@ class AddListener implements ActionListener {
         }
         addToTable(name, location, cuisineType);
         addToTracker(name);
-
         resetFields();
 
     }

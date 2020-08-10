@@ -36,10 +36,14 @@ package ui;
 
 import model.CampusFoodPlace;
 import model.CampusFoodPlaceTracker;
+import persistence.Reader;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 
 public class CampusFoodApp extends JPanel {
@@ -53,8 +57,8 @@ public class CampusFoodApp extends JPanel {
     public JButton loadBtn;
     public AddListener addListener = new AddListener(this);
     public SaveListener saveListener = new SaveListener(this);
-    public LoadListener loadListener = new LoadListener(this);
-
+//    public LoadListener loadListener = new LoadListener(this);
+    int line = 0;
     public JTextField name;
     public JTextField location;
     public JTextField cuisineType;
@@ -63,8 +67,6 @@ public class CampusFoodApp extends JPanel {
     public CampusFoodPlace campusFoodPlace;
     public CampusFoodPlaceTracker tracker;
     public static final String TRACKER_FILE = "./data/tracker.txt";
-    int line = 0;
-
 
 
     //MODIFIES: this
@@ -79,10 +81,10 @@ public class CampusFoodApp extends JPanel {
         initButton(addBtn, addString, addListener);
 
         saveBtn = new JButton(saveString);
-        initButton(saveBtn,saveString,saveListener);
+        initButton(saveBtn, saveString, saveListener);
 
-        loadBtn = new JButton("Load");
-        initButton(loadBtn,"Load",loadListener);
+//        loadBtn = new JButton("Load");
+//        initButton(loadBtn, "Load", loadListener);
 
         name = initTextField(name);
         location = initTextField(location);
@@ -96,7 +98,7 @@ public class CampusFoodApp extends JPanel {
         JPanel buttonPanel = new JPanel();
         buttonPanel = addButtons(buttonPanel);
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        add(tableScrollPane,BorderLayout.EAST);
+        add(tableScrollPane, BorderLayout.EAST);
         add(buttonPanel, BorderLayout.WEST);
 
 
@@ -106,9 +108,6 @@ public class CampusFoodApp extends JPanel {
 //        splitPane.setDividerLocation(400);
     }
 
-    public void setCampusFoodPlace(CampusFoodPlace campusFoodPlace) {
-        this.campusFoodPlace = campusFoodPlace;
-    }
 
     //MODIFIES: panel
     //EFFECTS: add all the buttons to the panel
@@ -128,8 +127,8 @@ public class CampusFoodApp extends JPanel {
         panel.add(rating);
         panel.add(addBtn);
         panel.add(saveBtn);
-        panel.add(loadBtn);
-        panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+//        panel.add(loadBtn);
+        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         return panel;
     }
@@ -139,7 +138,6 @@ public class CampusFoodApp extends JPanel {
     private JTextField initTextField(JTextField field) {
         field = new JTextField(10);
         field.addActionListener(addListener);
-//        field.getDocument().addDocumentListener(addListener);
         return field;
     }
 
@@ -194,8 +192,30 @@ public class CampusFoodApp extends JPanel {
     //EFFECTS: initialize campusFoodPlace
     public void init() {
         tracker = new CampusFoodPlaceTracker();
+        loadFoodPlaces();
     }
 
+    //MODIFIES: this
+    //EFFECTS: loads all saved campusFoodPlaces to table
+    public void loadFoodPlaces() {
+        try {
+            tracker = (CampusFoodPlaceTracker) Reader.readCampusFoodPlace(new File(TRACKER_FILE));
+
+            for (int i = 0; i < tracker.size(); i++) {
+                tracker.addCampusFood(tracker.lastVisited());
+                tableModel.addRow(new Object[0]);
+                tableModel.setValueAt(campusFoodPlace.getName(), line, 0);
+                tableModel.setValueAt(campusFoodPlace.getLocation(), line, 1);
+                tableModel.setValueAt(campusFoodPlace.getCuisineType(), line, 2);
+                tableModel.setValueAt(campusFoodPlace.isVegan(), line, 3);
+                tableModel.setValueAt(campusFoodPlace.getRating(), line, 4);
+                line = line + 1;
+                JOptionPane.showMessageDialog(null, "File successfully loaded!");
+            }
+        } catch (IOException e) {
+            init();
+        }
+    }
 
     //EFFECTS: Create the GUI and show it
     private static void createAndShowGUI() {
@@ -210,6 +230,11 @@ public class CampusFoodApp extends JPanel {
         frame.pack();
         frame.setVisible(true);
 
+    }
+
+
+    public void setCampusFoodPlace(CampusFoodPlace campusFoodPlace) {
+        this.campusFoodPlace = campusFoodPlace;
     }
 
     public static void main(String[] args) {
