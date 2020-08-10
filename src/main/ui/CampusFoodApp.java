@@ -1,271 +1,223 @@
+/*
+ * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   - Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *
+ *   - Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *
+ *   - Neither the name of Oracle or the names of its
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+//some code copied from: https://codereview.stackexchange.com/questions/57502/using-sounds-in-java
+//some code copied from: https://stackoverflow.com/questions/2550536/java-loop-for-a-certain-duration
+
 package ui;
 
 import model.CampusFoodPlace;
 import model.CampusFoodPlaceTracker;
-import persistence.Reader;
-import persistence.Writer;
-
-import javax.sound.midi.Track;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.awt.event.ActionListener;
 
 
-// campus food application where user can log campus food places they've been to
-public class CampusFoodApp {
-    private Scanner input;
-    private CampusFoodPlaceTracker campusFoodPlaceTracker;
-    private CampusFoodPlace campusFoodPlace;
-    private static final String PROMPT = "\nWhat else would you like to do?";
-    private static final String TRACKER_FILE = "./data/tracker.txt";
-    private TrackerPanel trackerPanel;
-    private Tracker tracker;
-    private MainFrame frame;
-    private JTextArea textArea;
-    private Container container;
+public class CampusFoodApp extends JPanel {
+    public DefaultTableModel tableModel;
+    public JTable table;
 
+    public static final String addString = "Add Food Place";
+    public static final String saveString = "Save";
+    public JButton saveBtn;
+    public JButton addBtn;
+    public JButton loadBtn;
+    public AddFoodListener addFoodListener = new AddFoodListener(this);
+    public SaveListener saveListener = new SaveListener(this);
+    public LoadFoodListener loadListener = new LoadFoodListener(this);
 
-    // EFFECTS: runs the food application
+    public JTextField name;
+    public JTextField location;
+    public JTextField cuisineType;
+    public JComboBox rating;
+    public JComboBox veganOption;
+    public CampusFoodPlace campusFoodPlace;
+    public CampusFoodPlaceTracker tracker;
+    public static final String TRACKER_FILE = "./data/tracker.txt";
+    int line = 0;
+
+    //MODIFIES: this
+    //EFFECTS: start the program
     public CampusFoodApp() {
+        super(new BorderLayout());
 
-        frame = new MainFrame("UBC Campus Food App");
-        frame.setSize(500, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        createPanels();
-        frame.setVisible(true);
-//        runGreeter();
-    }
+        table = initTable();
+        JScrollPane tableScrollPane = new JScrollPane(table);
 
+        addBtn = new JButton(addString);
+        initButton(addBtn, addString, addFoodListener);
+        addBtn.setEnabled(false);
 
-    // EFFECTS: greets the user and displays menu
-    private void runGreeter() {
+        saveBtn = new JButton(saveString);
+        initButton(saveBtn,saveString,saveListener);
 
-        boolean continueOn = true;
-        String entry = null;
-        input = new Scanner(System.in);
+        loadBtn = new JButton("Load");
+        initButton(loadBtn,"Load",loadListener);
+
+        name = initTextField(name);
+        location = initTextField(location);
+        cuisineType = initTextField(cuisineType);
+        veganOption = initVeganBox(veganOption);
+        rating = initRatingBox(rating);
 
         init();
 
-        System.out.println("Welcome to the UBC Campus Food App! ");
-        System.out.println("What would you like to do today?");
+        //Create a panel that uses FlowLayout.
+        JPanel buttonPanel = new JPanel();
+        buttonPanel = addButtons(buttonPanel);
+        buttonPanel.setLayout(new FlowLayout());
+        add(tableScrollPane,BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.PAGE_START);
 
-        while (continueOn) {
-            displayMenu();
-            entry = input.next();
+    }
 
-            if (entry.equals("e")) {
-                continueOn = false;
-                closeApp();
-            } else {
-                chooseOption(entry);
+    //MODIFIES: panel
+    //EFFECTS: add all the buttons to the panel
+    private JPanel addButtons(JPanel panel) {
+        panel.add(Box.createHorizontalStrut(5));
+        panel.add(new JSeparator(SwingConstants.VERTICAL));
+        panel.add(Box.createHorizontalStrut(5));
+        panel.add(new JLabel("Name of Food Place:"));
+        panel.add(name);
+        panel.add(new JLabel("Location:"));
+        panel.add(location);
+        panel.add(new JLabel("Cuisine:"));
+        panel.add(cuisineType);
+        panel.add(new JLabel("Vegan:"));
+        panel.add(veganOption);
+        panel.add(new JLabel("Rating:"));
+        panel.add(rating);
+        panel.add(addBtn);
+        panel.add(saveBtn);
+        panel.add(loadBtn);
+        panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+
+        return panel;
+    }
+
+    //MODIFIES: field
+    //EFFECTS: initialize given JTextField
+    private JTextField initTextField(JTextField field) {
+        field = new JTextField(10);
+        field.addActionListener(addFoodListener);
+        field.getDocument().addDocumentListener(addFoodListener);
+        return field;
+    }
+
+    //MODIFIES: veganCombo
+    //EFFECTS: initialize vegan JComboBox
+    private JComboBox initVeganBox(JComboBox veganCombo) {
+        veganCombo = new JComboBox<>();
+        DefaultComboBoxModel<Boolean> veganModel = new DefaultComboBoxModel<>();
+        veganModel.addElement(true);
+        veganModel.addElement(false);
+        veganCombo.setModel(veganModel);
+        return veganCombo;
+    }
+
+    //MODIFIES: ratingCombo
+    //EFFECTS: initialize vegan JComboBox
+    private JComboBox initRatingBox(JComboBox ratingCombo) {
+        ratingCombo = new JComboBox<>();
+        DefaultComboBoxModel<Integer> ratingModel = new DefaultComboBoxModel<>();
+        ratingModel.addElement(1);
+        ratingModel.addElement(2);
+        ratingModel.addElement(3);
+        ratingModel.addElement(4);
+        ratingModel.addElement(5);
+        ratingCombo.setModel(ratingModel);
+        return ratingCombo;
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: initialize table
+    private JTable initTable() {
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("Name");
+        tableModel.addColumn("Location");
+        tableModel.addColumn("Cuisine");
+        tableModel.addColumn("Vegan Option");
+        tableModel.addColumn("Rating");
+        table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        return table;
+    }
+
+    //EFFECTS: initialize button
+    private void initButton(JButton btnName, String cm, ActionListener listener) {
+        btnName.setActionCommand(cm);
+        btnName.addActionListener(listener);
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: initialize campusFoodPlace
+    public void init() {
+        tracker = new CampusFoodPlaceTracker();
+    }
+
+
+    //EFFECTS: Create the GUI and show it
+    private static void createAndShowGUI() {
+        //Create and set up the window.
+        JFrame frame = new JFrame("MyTracker");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Create and set up the content pane.
+        JComponent newContentPane = new CampusFoodApp();
+        newContentPane.setOpaque(true); //content panes must be opaque
+        frame.setContentPane(newContentPane);
+
+
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+
+        // Split panels
+//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this, table);
+//        splitPane.setOneTouchExpandable(false);
+//        splitPane.setDividerLocation(400);
+    }
+
+    public static void main(String[] args) {
+        //Schedule a job for the event-dispatching thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
             }
-
-        }
-    }
-
-    // EFFECTS: displays the menu
-    private void run() {
-
-        boolean continueOn = true;
-        String entry = null;
-        input = new Scanner(System.in);
-
-        while (continueOn) {
-            displayMenu();
-            entry = input.next();
-
-            if (entry.equals("e")) {
-                continueOn = false;
-                closeApp();
-            } else {
-                chooseOption(entry);
-            }
-
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: initializes tracker
-    private void init() {
-        trackerPanel = new TrackerPanel();
-        campusFoodPlaceTracker = new CampusFoodPlaceTracker();
-        loadTracker();
-    }
-
-    // MODIFIES: this
-    // EFFECTS: loads tracker from TRACKER_FILE, if that file exists;
-    // otherwise initializes tracker with empty tracker
-    private void loadTracker() {
-        try {
-            List<CampusFoodPlace> tracker = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
-            for (int i = 0; i < tracker.size(); i++) {
-                campusFoodPlaceTracker.addCampusFood(tracker.get(i));
-            }
-
-        } catch (IOException e) {
-            init();
-        }
-    }
-
-    // EFFECTS: create tabs for each panel
-    // MODIFIES: this
-//    private void createPanels() {
-//        init();
-//        JTabbedPane tp = new JTabbedPane();
-//        tp.setBounds(0, 0, 700, 800);
-//        tp.add("Add to your tracker", frame);
-//        frame.add(tp);
-//    }
-
-    // EFFECTS: saves all visited Campus Food Places to TRACKER_FILE
-    private void saveTracker() {
-        try {
-            Writer writer = new Writer(new File(TRACKER_FILE));
-            for (CampusFoodPlace cfp : this.campusFoodPlaceTracker.getCampusFoods()) {
-                writer.write(cfp);
-            }
-            writer.close();
-            System.out.println("Food places saved to file " + TRACKER_FILE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save food places to " + TRACKER_FILE);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            // this is due to a programming error
-        }
-    }
-
-
-    // MODIFIES: this
-    // EFFECTS: processes user entry
-    private void chooseOption(String entry) {
-
-        if (entry.equals("a")) {
-            logFoodPlace();
-            rePrompt(PROMPT);
-
-        } else if (entry.equals("p")) {
-            printNames();
-            rePrompt(PROMPT);
-
-        } else if (entry.equals("v")) {
-            printVeganNames();
-            rePrompt(PROMPT);
-
-        } else if (entry.equals("i")) {
-            printInfo();
-            rePrompt(PROMPT);
-
-        } else if (entry.equals("s")) {
-            saveTracker();
-
-
-        } else if (entry.equals("e")) {
-            closeApp();
-
-        } else {
-            rePrompt("Invalid selection");
-        }
-    }
-
-    // EFFECTS: displays menu of options to user
-    private void displayMenu() {
-        System.out.println("\nSelect from:");
-        System.out.println("\ta -> Log food place");
-        System.out.println("\tp -> Print list of visited campus food place names");
-        System.out.println("\tv -> Print list of vegan campus food places");
-        System.out.println("\ti -> Print list of visited campus food place info");
-        System.out.println("\ts -> Save campus food place to file");
-        System.out.println("\te -> Exit");
-    }
-
-
-    // EFFECTS: prompts user to enter name, location, cuisine type, and vegan option of food place
-    private void logFoodPlace() {
-        input = new Scanner(System.in);
-
-        System.out.println("Enter the name of food place");
-        String name = input.nextLine();
-
-        System.out.println("Enter the location of food place");
-        String location = input.nextLine();
-
-        System.out.println("Enter the cuisine type of food place");
-        String cuisineType = input.nextLine();
-
-        Boolean veganOption = getVeganOptionInput();
-
-        int rating = getRatingInput();
-
-        CampusFoodPlace campusFoodPlace = new CampusFoodPlace(name, location, cuisineType, veganOption,
-                rating);
-        campusFoodPlaceTracker.addCampusFood(campusFoodPlace);
-        System.out.println("\"" + campusFoodPlace.getName() + "\"" + " has been added to the tracker");
-    }
-
-    private Boolean getVeganOptionInput() {
-        System.out.println("Does this food place carry vegan options? (Type True = yes False = no)");
-        Boolean veganOption;
-        while (true) {
-            try {
-                veganOption = input.nextBoolean();
-                return veganOption;
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter True or False! ");
-                input.next();
-            }
-        }
-    }
-
-    private int getRatingInput() {
-        System.out.println("What rating would you give out of 5?");
-        int rating;
-        while (true) {
-            try {
-                rating = input.nextInt();
-                return rating;
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a number between 0 to 5.");
-                input.next();
-            }
-        }
-    }
-
-    // EFFECTS: prints list of visited campus food places on screen
-    private void printNames() {
-        System.out.println(campusFoodPlaceTracker.listOfNames());
-    }
-
-    // EFFECTS: prints list of visited campus food places that are vegan
-    private void printVeganNames() {
-        System.out.println(campusFoodPlaceTracker.listOfVeganPlaces());
-    }
-
-    // EFFECTS: prints info of all visited campus food places
-    private void printInfo() {
-        System.out.println(campusFoodPlaceTracker.getCampusFoods());
-    }
-
-
-    private void rePrompt(String prompt) {
-        String entry = null;
-        System.out.println(prompt);
-        run();
-    }
-
-    private void closeApp() {
-        System.out.println("Thank you for using the UBC Food App.");
-        System.out.println("See you next time!");
-        System.exit(0);
+        });
     }
 
 
 }
-
-
-

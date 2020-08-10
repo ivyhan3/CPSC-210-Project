@@ -27,6 +27,7 @@ public class CampusFoodPlace implements Saveable {
         this.rating = rating;
     }
 
+
     // getters
     public String getName() {
         return name;
