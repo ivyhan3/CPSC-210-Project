@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
-//represent action triggered by save button
+//represent saving of food place when saveBtn is clicked
 class SaveListener implements ActionListener {
     private final CampusFoodApp campusFoodApp;
 
@@ -20,11 +20,11 @@ class SaveListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        saveFoodPlaces();
+        saveFoodPlace();
     }
 
-    //EFFECTS: save the list of food places to file
-    private void saveFoodPlaces() {
+    //EFFECTS: saves the new food place to file
+    private void saveFoodPlace() {
         try {
             Writer writer = new Writer(new File(CampusFoodApp.TRACKER_FILE));
             writer.write(campusFoodApp.campusFoodPlace);

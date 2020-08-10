@@ -75,7 +75,6 @@ public class CampusFoodApp extends JPanel {
 
         addBtn = new JButton(addString);
         initButton(addBtn, addString, addListener);
-        addBtn.setEnabled(false);
 
         saveBtn = new JButton(saveString);
         initButton(saveBtn,saveString,saveListener);
@@ -94,18 +93,23 @@ public class CampusFoodApp extends JPanel {
         //Create a panel that uses FlowLayout.
         JPanel buttonPanel = new JPanel();
         buttonPanel = addButtons(buttonPanel);
-        buttonPanel.setLayout(new FlowLayout());
-        add(tableScrollPane,BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.PAGE_START);
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        add(tableScrollPane,BorderLayout.EAST);
+        add(buttonPanel, BorderLayout.WEST);
 
+
+        // Split panels
+//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, buttonPanel, table);
+//        splitPane.setOneTouchExpandable(false);
+//        splitPane.setDividerLocation(400);
     }
 
     //MODIFIES: panel
     //EFFECTS: add all the buttons to the panel
     private JPanel addButtons(JPanel panel) {
-        panel.add(Box.createHorizontalStrut(5));
+        panel.add(Box.createVerticalStrut(5));
         panel.add(new JSeparator(SwingConstants.VERTICAL));
-        panel.add(Box.createHorizontalStrut(5));
+        panel.add(Box.createVerticalStrut(5));
         panel.add(new JLabel("Name of Food Place:"));
         panel.add(name);
         panel.add(new JLabel("Location:"));
@@ -129,7 +133,7 @@ public class CampusFoodApp extends JPanel {
     private JTextField initTextField(JTextField field) {
         field = new JTextField(10);
         field.addActionListener(addListener);
-        field.getDocument().addDocumentListener(addListener);
+//        field.getDocument().addDocumentListener(addListener);
         return field;
     }
 
@@ -203,10 +207,6 @@ public class CampusFoodApp extends JPanel {
         frame.pack();
         frame.setVisible(true);
 
-        // Split panels
-//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, newContentPane, table);
-//        splitPane.setOneTouchExpandable(false);
-//        splitPane.setDividerLocation(400);
     }
 
     public static void main(String[] args) {

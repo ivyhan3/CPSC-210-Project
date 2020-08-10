@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 //this class deals with actions when addFood button is triggered
-class AddListener implements ActionListener, DocumentListener {
+class AddListener implements ActionListener {
     private final CampusFoodApp campusFoodApp;
     private boolean alreadyEnabled = false;
 
@@ -44,7 +44,7 @@ class AddListener implements ActionListener, DocumentListener {
 
     }
 
-    //MODIFIES:myTracker
+    //MODIFIES:CampusFoodApp
     //EFFECTS: reset the text fields
     private void resetFields() {
         resetTextField(campusFoodApp.name);
@@ -73,7 +73,7 @@ class AddListener implements ActionListener, DocumentListener {
         campusFoodApp.tableModel.setValueAt((Boolean) campusFoodApp.veganOption.getSelectedItem(), campusFoodApp.line,3);
         campusFoodApp.tableModel.setValueAt((int) campusFoodApp.rating.getSelectedItem(), campusFoodApp.line,4);
         campusFoodApp.table.setRowSelectionInterval(campusFoodApp.line, campusFoodApp.line);
-        JOptionPane.showMessageDialog(null,"Food has been successfully added!");
+        JOptionPane.showMessageDialog(null,name + " has been successfully added!");
         campusFoodApp.line = campusFoodApp.line + 1;
 
 
@@ -86,42 +86,6 @@ class AddListener implements ActionListener, DocumentListener {
         field.setText("");
     }
 
-
-    //Required by DocumentListener.
-    public void insertUpdate(DocumentEvent e) {
-        enableButton();
-    }
-
-    //Required by DocumentListener.
-    public void removeUpdate(DocumentEvent e) {
-        handleEmptyTextField(e);
-    }
-
-    //Required by DocumentListener.
-    public void changedUpdate(DocumentEvent e) {
-        if (!handleEmptyTextField(e)) {
-            enableButton();
-        }
-    }
-
-
-    //MODIFIES:CampusFoodApp
-    //EFFECTS:enables add button
-    private void enableButton() {
-        if (!alreadyEnabled) {
-            campusFoodApp.addBtn.setEnabled(true);
-        }
-    }
-
-    //EFFECTS: return true if addBtn is disabled
-    private boolean handleEmptyTextField(DocumentEvent e) {
-        if (e.getDocument().getLength() <= 0) {
-            campusFoodApp.addBtn.setEnabled(false);
-            alreadyEnabled = false;
-            return true;
-        }
-        return false;
-    }
 
     // EFFECTS: plays a sound when user clicks addBtn
     public void playSound() {
