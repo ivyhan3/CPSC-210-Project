@@ -118,6 +118,12 @@ class CampusFoodTrackerTest {
         assertFalse(foodPlaces.makeRating(cfp2.getName(), 4));
     }
 
-
+    @Test
+    public void testGetCampusFoodPlace() {
+        foodPlaces.addCampusFood(cfp1);
+        foodPlaces.addCampusFood(cfp2);
+        assertEquals(cfp1, foodPlaces.getCampusFoodPlace(0));
+        assertEquals(cfp2, foodPlaces.getCampusFoodPlace(1));
+    }
 
 }
