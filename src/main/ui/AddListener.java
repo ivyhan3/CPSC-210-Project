@@ -13,12 +13,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 //this class deals with actions when addFood button is triggered
-class AddFoodListener implements ActionListener, DocumentListener {
+class AddListener implements ActionListener, DocumentListener {
     private final CampusFoodApp campusFoodApp;
     private boolean alreadyEnabled = false;
 
     //EFFECTS: initialize addFoodListener
-    public AddFoodListener(CampusFoodApp campusFoodApp) {
+    public AddListener(CampusFoodApp campusFoodApp) {
         this.campusFoodApp = campusFoodApp;
     }
 
@@ -30,6 +30,7 @@ class AddFoodListener implements ActionListener, DocumentListener {
         String cuisineType = campusFoodApp.cuisineType.getText();
         Boolean veganOption = (Boolean) campusFoodApp.veganOption.getSelectedItem();
         int rating = (int) campusFoodApp.rating.getSelectedItem();
+        playSound();
 
         if (name.equals("")) {
             JOptionPane.showMessageDialog(null,
@@ -38,7 +39,6 @@ class AddFoodListener implements ActionListener, DocumentListener {
         }
         addToTable(name, location, cuisineType);
         addToTracker(name);
-        playSound();
 
         resetFields();
 
@@ -52,7 +52,7 @@ class AddFoodListener implements ActionListener, DocumentListener {
         resetTextField(campusFoodApp.cuisineType);
     }
 
-    //MODIFIES:myTracker
+    //MODIFIES: CampusFoodApp
     //EFFECTS:add new value to tracker
     private void addToTracker(String name) {
         String location = campusFoodApp.location.getText();
@@ -63,7 +63,7 @@ class AddFoodListener implements ActionListener, DocumentListener {
         campusFoodApp.tracker.addCampusFood(cfp);
     }
 
-    //MODIFIES:myTracker
+    //MODIFIES:CampusFoodApp
     //EFFECTS:add new values to table
     private void addToTable(String name, String location, String cuisineType) {
         campusFoodApp.tableModel.addRow(new Object[0]);
@@ -79,7 +79,7 @@ class AddFoodListener implements ActionListener, DocumentListener {
 
     }
 
-    //MODIFIES:myTracker
+    //MODIFIES:CampusFoodApp
     //EFFECTS:reset the text field
     public void resetTextField(JTextField field) {
         field.requestFocusInWindow();
@@ -105,7 +105,7 @@ class AddFoodListener implements ActionListener, DocumentListener {
     }
 
 
-    //MODIFIES:myTracker
+    //MODIFIES:CampusFoodApp
     //EFFECTS:enables add button
     private void enableButton() {
         if (!alreadyEnabled) {

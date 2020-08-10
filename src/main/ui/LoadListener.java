@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-class LoadFoodListener implements ActionListener {
+class LoadListener implements ActionListener {
     private final CampusFoodApp campusFoodApp;
 
-    public LoadFoodListener(CampusFoodApp campusFoodApp) {
+    public LoadListener(CampusFoodApp campusFoodApp) {
         this.campusFoodApp = campusFoodApp;
     }
 
@@ -23,8 +23,8 @@ class LoadFoodListener implements ActionListener {
 
     }
 
-    // MODIFIES: myTracker
-    // EFFECTS: load saved lunch and display in table
+    // MODIFIES: CampusFoodApp
+    // EFFECTS: load saved campus food places and display in table
     private void loadCampusFoodPlace() {
         try {
             campusFoodApp.tracker = (CampusFoodPlaceTracker) Reader.readCampusFoodPlace(new File(CampusFoodApp.TRACKER_FILE));

@@ -51,9 +51,9 @@ public class CampusFoodApp extends JPanel {
     public JButton saveBtn;
     public JButton addBtn;
     public JButton loadBtn;
-    public AddFoodListener addFoodListener = new AddFoodListener(this);
+    public AddListener addListener = new AddListener(this);
     public SaveListener saveListener = new SaveListener(this);
-    public LoadFoodListener loadListener = new LoadFoodListener(this);
+    public LoadListener loadListener = new LoadListener(this);
 
     public JTextField name;
     public JTextField location;
@@ -74,7 +74,7 @@ public class CampusFoodApp extends JPanel {
         JScrollPane tableScrollPane = new JScrollPane(table);
 
         addBtn = new JButton(addString);
-        initButton(addBtn, addString, addFoodListener);
+        initButton(addBtn, addString, addListener);
         addBtn.setEnabled(false);
 
         saveBtn = new JButton(saveString);
@@ -128,8 +128,8 @@ public class CampusFoodApp extends JPanel {
     //EFFECTS: initialize given JTextField
     private JTextField initTextField(JTextField field) {
         field = new JTextField(10);
-        field.addActionListener(addFoodListener);
-        field.getDocument().addDocumentListener(addFoodListener);
+        field.addActionListener(addListener);
+        field.getDocument().addDocumentListener(addListener);
         return field;
     }
 
@@ -190,7 +190,7 @@ public class CampusFoodApp extends JPanel {
     //EFFECTS: Create the GUI and show it
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("MyTracker");
+        JFrame frame = new JFrame("UBC Campus Food Tracker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
@@ -204,7 +204,7 @@ public class CampusFoodApp extends JPanel {
         frame.setVisible(true);
 
         // Split panels
-//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this, table);
+//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, newContentPane, table);
 //        splitPane.setOneTouchExpandable(false);
 //        splitPane.setDividerLocation(400);
     }

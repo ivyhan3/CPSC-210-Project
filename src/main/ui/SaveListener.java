@@ -20,11 +20,11 @@ class SaveListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        saveFoods();
+        saveFoodPlaces();
     }
 
-    //EFFECTS: save the list of food to file
-    private void saveFoods() {
+    //EFFECTS: save the list of food places to file
+    private void saveFoodPlaces() {
         try {
             Writer writer = new Writer(new File(CampusFoodApp.TRACKER_FILE));
             writer.write(campusFoodApp.campusFoodPlace);
