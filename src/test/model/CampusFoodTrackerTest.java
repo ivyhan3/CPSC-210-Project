@@ -1,21 +1,28 @@
 package model;
 
+import exceptions.NotProperRatingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 // Unit tests for CampusFoodTracker class
 class CampusFoodTrackerTest {
     private CampusFoodPlaceTracker foodPlaces;
-    private CampusFoodPlace cfp1 = new CampusFoodPlace("the Porch", new java.lang.String("the Nest"),
-            new String("Healthy"), true, -1);
-    private CampusFoodPlace cfp2 = new CampusFoodPlace("PacificPoke", new java.lang.String("ICICS"),
-            new String("Asian"), true, -1);
-    private CampusFoodPlace cfp3 = new CampusFoodPlace("Soup Kitchen", new java.lang.String("the Nest"),
-            new String("Western"), false, -1);
+    private CampusFoodPlace cfp1 = new CampusFoodPlace("the Porch", "the Nest",
+           "Healthy", true, -1);
+    private CampusFoodPlace cfp2 = new CampusFoodPlace("PacificPoke", "ICICS",
+           "Asian", true, -1);
+    private CampusFoodPlace cfp3 = new CampusFoodPlace("Soup Kitchen", "the Nest",
+            "Western", false, -1);
+    private PrintWriter printWriter;
+    public static final String TRACKER_FILE = "./data/tracker.txt";
 
 
     @BeforeEach
@@ -106,16 +113,24 @@ class CampusFoodTrackerTest {
     }
 
     @Test
-    public void testMakeRating() {
+    public void testMakeProperRating() {
         foodPlaces.addCampusFood(cfp1);
         foodPlaces.addCampusFood(cfp2);
-        assertTrue(foodPlaces.makeRating(cfp2.getName(), 4));
+        try {
+            assertTrue(foodPlaces.makeRating(cfp2.getName(), 4));
+        } catch (NotProperRatingException e) {
+            fail();
+        }
         assertEquals(cfp2.getRating(), 4);
     }
 
     @Test
-    public void testMakeRatingEmpty() {
-        assertFalse(foodPlaces.makeRating(cfp2.getName(), 4));
+    public void testMakeImproperRating() {
+        try {
+            assertFalse(foodPlaces.makeRating(cfp2.getName(), 8));
+        } catch (NotProperRatingException e) {
+            System.out.println("Invalid rating");
+        }
     }
 
     @Test
@@ -124,6 +139,16 @@ class CampusFoodTrackerTest {
         foodPlaces.addCampusFood(cfp2);
         assertEquals(cfp1, foodPlaces.getCampusFoodPlace(0));
         assertEquals(cfp2, foodPlaces.getCampusFoodPlace(1));
+    }
+
+    @Test
+    public void testSave() {
+        try {
+            printWriter = new PrintWriter(new File(TRACKER_FILE));
+            cfp1.save(printWriter);
+        } catch (FileNotFoundException e) {
+            fail();
+        }
     }
 
 }

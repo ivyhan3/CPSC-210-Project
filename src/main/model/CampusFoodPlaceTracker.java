@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NotProperRatingException;
 import persistence.Reader;
 import persistence.Saveable;
 
@@ -78,7 +79,7 @@ public class CampusFoodPlaceTracker implements Saveable {
 
     // MODIFIES: this
     // EFFECTS: sets the rating if the given name matches the name of CampusFoodPlace
-    public boolean makeRating(String name, Integer rating) {
+    public boolean makeRating(String name, Integer rating) throws NotProperRatingException {
         for (CampusFoodPlace s : foodPlaces) {
             if (s.getName().equals(name)) {
                 s.setRating(rating);

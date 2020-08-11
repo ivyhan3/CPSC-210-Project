@@ -1,6 +1,7 @@
 package model;
 
 
+import exceptions.NotProperRatingException;
 import persistence.Reader;
 import persistence.Saveable;
 
@@ -50,9 +51,15 @@ public class CampusFoodPlace implements Saveable {
         return rating;
     }
 
-    //setter
-    public void setRating(Integer rating) {
-        this.rating = rating;
+    // MODIFIES: this
+    // EFFECTS: rating set to this input
+    public void setRating(Integer rating) throws NotProperRatingException {
+        if (rating >= 0 && rating <= 5) {
+            this.rating = rating;
+        } else {
+            throw new NotProperRatingException("Please enter a rating from 0-5");
+        }
+
     }
 
 

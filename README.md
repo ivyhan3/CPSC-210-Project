@@ -28,4 +28,13 @@ to the tracker.
 - You can save the state of my application by clicking the "Save" button.
 - You can load the state of my application automatically upon opening the app.
 
+### Phase 4: Task 2:
+- To make the CampusFoodPlace class robust, I added a NotProperRatingException checked exception to the 
+setRating() method. 
+-In the CampusFoodPlaceTest class, I added two Tests for when the rating is proper and exception is 
+not expected as well as for when the rating is improper and exception is expected.
+
+### Phase 4: Task 3:
+1. Refactored two for-loops in loadFoodPlaces() to increase readability and improve cohesion as it was difficult
+to understand the function of the for-loops inside the method.
 ~~~~ 

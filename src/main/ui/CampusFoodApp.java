@@ -44,7 +44,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -195,14 +194,14 @@ public class CampusFoodApp extends JPanel {
         try {
             List<CampusFoodPlace> foodPlaces = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
             addFoodPlacesToTracker(foodPlaces);
-            loadFoodPlacesToTracker();
+            loadFoodPlacesToTable();
             JOptionPane.showMessageDialog(null, "File successfully loaded!");
         } catch (IOException e) {
             init();
         }
     }
 
-    private void loadFoodPlacesToTracker() {
+    private void loadFoodPlacesToTable() {
         for (int i = 0; i < tracker.size(); i++) {
             CampusFoodPlace cfp = tracker.getCampusFoodPlace(i);
             tableModel.addRow(new Object[0]);
