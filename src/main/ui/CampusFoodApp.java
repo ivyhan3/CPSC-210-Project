@@ -194,23 +194,30 @@ public class CampusFoodApp extends JPanel {
     public void loadFoodPlaces() {
         try {
             List<CampusFoodPlace> foodPlaces = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
-            for (int i = 0; i < foodPlaces.size(); i++) {
-                tracker.addCampusFood(foodPlaces.get(i));
-            }
-
-            for (int i = 0; i < tracker.size(); i++) {
-                CampusFoodPlace cfp = tracker.getCampusFoodPlace(i);
-                tableModel.addRow(new Object[0]);
-                tableModel.setValueAt(cfp.getName(), line, 0);
-                tableModel.setValueAt(cfp.getLocation(), line, 1);
-                tableModel.setValueAt(cfp.getCuisineType(), line, 2);
-                tableModel.setValueAt(cfp.isVegan(), line, 3);
-                tableModel.setValueAt(cfp.getRating(), line, 4);
-                line = line + 1;
-            }
+            addFoodPlacesToTracker(foodPlaces);
+            loadFoodPlacesToTracker();
             JOptionPane.showMessageDialog(null, "File successfully loaded!");
         } catch (IOException e) {
             init();
+        }
+    }
+
+    private void loadFoodPlacesToTracker() {
+        for (int i = 0; i < tracker.size(); i++) {
+            CampusFoodPlace cfp = tracker.getCampusFoodPlace(i);
+            tableModel.addRow(new Object[0]);
+            tableModel.setValueAt(cfp.getName(), line, 0);
+            tableModel.setValueAt(cfp.getLocation(), line, 1);
+            tableModel.setValueAt(cfp.getCuisineType(), line, 2);
+            tableModel.setValueAt(cfp.isVegan(), line, 3);
+            tableModel.setValueAt(cfp.getRating(), line, 4);
+            line = line + 1;
+        }
+    }
+
+    private void addFoodPlacesToTracker(List<CampusFoodPlace> foodPlaces) {
+        for (int i = 0; i < foodPlaces.size(); i++) {
+            tracker.addCampusFood(foodPlaces.get(i));
         }
     }
 
