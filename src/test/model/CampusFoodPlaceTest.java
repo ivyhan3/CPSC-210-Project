@@ -52,9 +52,49 @@ public class CampusFoodPlaceTest {
     }
 
     @Test
+    void testSetProperRatingUpperBound() {
+        try {
+            campusFoodPlace.setRating(5);
+            assertEquals(5, campusFoodPlace.getRating());
+        } catch (NotProperRatingException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void testSetProperRatingLowerBound() {
+        try {
+            campusFoodPlace.setRating(0);
+            assertEquals(0, campusFoodPlace.getRating());
+        } catch (NotProperRatingException e) {
+            fail();
+        }
+    }
+
+    @Test
     void testSetNotProperRating() {
         try {
-            campusFoodPlace.setRating(8);
+            campusFoodPlace.setRating(7);
+            fail();
+        } catch (NotProperRatingException e) {
+            System.out.println("Please enter a rating from 0-5");
+        }
+    }
+
+    @Test
+    void testSetNotProperRatingLowerBound() {
+        try {
+            campusFoodPlace.setRating(-1);
+            fail();
+        } catch (NotProperRatingException e) {
+            System.out.println("Please enter a rating from 0-5");
+        }
+    }
+
+    @Test
+    void testSetNotProperRatingUpperBound() {
+        try {
+            campusFoodPlace.setRating(6);
             fail();
         } catch (NotProperRatingException e) {
             System.out.println("Please enter a rating from 0-5");

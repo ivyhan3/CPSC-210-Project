@@ -31,7 +31,7 @@ to the tracker.
 ### Phase 4: Task 2:
 - To make the CampusFoodPlace class robust, I added a NotProperRatingException checked exception to the 
 setRating() method. This exception is thrown if a rating is not in the range 0-5.
-- In the CampusFoodPlaceTest class, I added two tests for 2 cases: when the rating is proper (exception unexpected) and 
+- In the CampusFoodPlaceTest class, I added multiple tests for 2 main cases: when the rating is proper (exception unexpected) and 
 when the rating is improper (exception expected).
 
 ### Phase 4: Task 3:
