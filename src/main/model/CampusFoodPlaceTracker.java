@@ -11,12 +11,6 @@ import java.util.List;
 // represents a tracker that contains campus food places
 public class CampusFoodPlaceTracker implements Saveable {
     private List<CampusFoodPlace> foodPlaces;
-    CampusFoodPlace cfp1;
-    CampusFoodPlace cfp2;
-    CampusFoodPlace cfp3;
-    CampusFoodPlace cfp4;
-    CampusFoodPlace cfp5;
-    CampusFoodPlace cfp6;
 
     // EFFECTS: constructs an empty list of visited food places
     public CampusFoodPlaceTracker() {

@@ -2,22 +2,19 @@ package ui;
 
 import model.CampusFoodPlace;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 //adds new Campus Food Place when addBtn is pushed
 class AddListener implements ActionListener {
     private final CampusFoodApp campusFoodApp;
-    private boolean alreadyEnabled = false;
+    private SoundPlayer soundPlayer;
 
     //EFFECTS: initialize addListener
     public AddListener(CampusFoodApp campusFoodApp) {
         this.campusFoodApp = campusFoodApp;
+        soundPlayer = new SoundPlayer();
     }
 
     @Override
@@ -29,7 +26,7 @@ class AddListener implements ActionListener {
         Boolean veganOption = (Boolean) campusFoodApp.veganOption.getSelectedItem();
         int rating = (int) campusFoodApp.rating.getSelectedItem();
         campusFoodApp.setCampusFoodPlace(new CampusFoodPlace(name, location, cuisineType, veganOption, rating));
-        playSound();
+        soundPlayer.playSound();
 
         if (name.equals("")) {
             JOptionPane.showMessageDialog(null,
@@ -57,15 +54,15 @@ class AddListener implements ActionListener {
     //EFFECTS:add new values to table
     private void addToTable(String name, String location, String cuisineType) {
         campusFoodApp.tableModel.addRow(new Object[0]);
-        campusFoodApp.tableModel.setValueAt(name, campusFoodApp.line,0);
-        campusFoodApp.tableModel.setValueAt(location, campusFoodApp.line,1);
-        campusFoodApp.tableModel.setValueAt(cuisineType, campusFoodApp.line,2);
+        campusFoodApp.tableModel.setValueAt(name, campusFoodApp.row,0);
+        campusFoodApp.tableModel.setValueAt(location, campusFoodApp.row,1);
+        campusFoodApp.tableModel.setValueAt(cuisineType, campusFoodApp.row,2);
         campusFoodApp.tableModel.setValueAt(
-                (Boolean) campusFoodApp.veganOption.getSelectedItem(), campusFoodApp.line,3);
-        campusFoodApp.tableModel.setValueAt((int) campusFoodApp.rating.getSelectedItem(), campusFoodApp.line,4);
-        campusFoodApp.table.setRowSelectionInterval(campusFoodApp.line, campusFoodApp.line);
+                (Boolean) campusFoodApp.veganOption.getSelectedItem(), campusFoodApp.row,3);
+        campusFoodApp.tableModel.setValueAt((int) campusFoodApp.rating.getSelectedItem(), campusFoodApp.row,4);
+        campusFoodApp.table.setRowSelectionInterval(campusFoodApp.row, campusFoodApp.row);
         JOptionPane.showMessageDialog(null,name + " has been successfully added!");
-        campusFoodApp.line = campusFoodApp.line + 1;
+        campusFoodApp.row = campusFoodApp.row + 1;
     }
 
     //MODIFIES:CampusFoodApp
@@ -80,19 +77,5 @@ class AddListener implements ActionListener {
     }
 
 
-
-    // EFFECTS: plays a sound when user clicks addBtn
-    public void playSound() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-                    new File("data/click.wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (Exception ex) {
-            System.out.println("Error playing sound.");
-            ex.printStackTrace();
-        }
-    }
 }
 

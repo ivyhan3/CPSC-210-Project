@@ -1,0 +1,3 @@
+sf,sadf,sfa,true,1
+Subway,Life,fast food,false,3
+Starbucks,Life,cafe,false,3

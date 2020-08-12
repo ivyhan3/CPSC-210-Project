@@ -1,36 +1,3 @@
-/*
- * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   - Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *
- *   - Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *
- *   - Neither the name of Oracle or the names of its
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
- * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-//some code copied from: https://codereview.stackexchange.com/questions/57502/using-sounds-in-java
-//some code copied from: https://stackoverflow.com/questions/2550536/java-loop-for-a-certain-duration
 
 package ui;
 
@@ -53,12 +20,11 @@ public class CampusFoodApp extends JPanel {
 
     public static final String addString = "Add Food Place";
     public static final String saveString = "Save";
-    public static final String filterString = "Filter";
     public JButton saveBtn;
     public JButton addBtn;
-    public AddListener addListener = new AddListener(this);
-    public SaveListener saveListener = new SaveListener(this);
-    int line = 0;
+    public AddListener addListener;
+    public SaveListener saveListener;
+    int row = 0;
     public JTextField name;
     public JTextField location;
     public JTextField cuisineType;
@@ -77,29 +43,37 @@ public class CampusFoodApp extends JPanel {
         table = initTable();
         JScrollPane tableScrollPane = new JScrollPane(table);
 
+        addListener = new AddListener(this);
+        saveListener = new SaveListener(this);
+
         addBtn = new JButton(addString);
         initButton(addBtn, addString, addListener);
 
         saveBtn = new JButton(saveString);
         initButton(saveBtn, saveString, saveListener);
 
-        name = initTextField(name);
-        location = initTextField(location);
-        cuisineType = initTextField(cuisineType);
-        veganOption = initVeganBox(veganOption);
-        rating = initRatingBox(rating);
-
+        initInput();
         init();
 
-        //Create a button panel
+        createButtonPanel(tableScrollPane);
+
+    }
+
+    private void createButtonPanel(JScrollPane tableScrollPane) {
         JPanel buttonPanel = new JPanel();
         buttonPanel = addButtons(buttonPanel);
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         add(tableScrollPane, BorderLayout.EAST);
         add(buttonPanel, BorderLayout.WEST);
-
     }
 
+    private void initInput() {
+        name = initTextField(name);
+        location = initTextField(location);
+        cuisineType = initTextField(cuisineType);
+        veganOption = initVeganBox(veganOption);
+        rating = initRatingBox(rating);
+    }
 
 
     //MODIFIES: panel
@@ -120,7 +94,7 @@ public class CampusFoodApp extends JPanel {
         panel.add(rating);
         panel.add(addBtn);
         panel.add(saveBtn);
-        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         return panel;
     }
@@ -195,22 +169,8 @@ public class CampusFoodApp extends JPanel {
             List<CampusFoodPlace> foodPlaces = Reader.readCampusFoodPlace(new File(TRACKER_FILE));
             addFoodPlacesToTracker(foodPlaces);
             loadFoodPlacesToTable();
-            JOptionPane.showMessageDialog(null, "File successfully loaded!");
         } catch (IOException e) {
             init();
-        }
-    }
-
-    private void loadFoodPlacesToTable() {
-        for (int i = 0; i < tracker.size(); i++) {
-            CampusFoodPlace cfp = tracker.getCampusFoodPlace(i);
-            tableModel.addRow(new Object[0]);
-            tableModel.setValueAt(cfp.getName(), line, 0);
-            tableModel.setValueAt(cfp.getLocation(), line, 1);
-            tableModel.setValueAt(cfp.getCuisineType(), line, 2);
-            tableModel.setValueAt(cfp.isVegan(), line, 3);
-            tableModel.setValueAt(cfp.getRating(), line, 4);
-            line = line + 1;
         }
     }
 
@@ -219,6 +179,20 @@ public class CampusFoodApp extends JPanel {
             tracker.addCampusFood(foodPlaces.get(i));
         }
     }
+
+    private void loadFoodPlacesToTable() {
+        for (int i = 0; i < tracker.size(); i++) {
+            CampusFoodPlace cfp = tracker.getCampusFoodPlace(i);
+            tableModel.addRow(new Object[0]);
+            tableModel.setValueAt(cfp.getName(), row, 0);
+            tableModel.setValueAt(cfp.getLocation(), row, 1);
+            tableModel.setValueAt(cfp.getCuisineType(), row, 2);
+            tableModel.setValueAt(cfp.isVegan(), row, 3);
+            tableModel.setValueAt(cfp.getRating(), row, 4);
+            row = row + 1;
+        }
+    }
+
 
     //EFFECTS: Create the GUI and show it
     private static void createAndShowGUI() {
