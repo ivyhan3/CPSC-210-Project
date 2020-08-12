@@ -4,10 +4,16 @@ import exceptions.NotProperRatingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CampusFoodPlaceTest {
     private CampusFoodPlace campusFoodPlace;
+    private PrintWriter printWriter;
+    public static final String TRACKER_FILE = "./data/tracker.txt";
 
     @BeforeEach
     void runBefore() {
@@ -55,4 +61,13 @@ public class CampusFoodPlaceTest {
         }
     }
 
+    @Test
+    void testSave() {
+        try {
+            printWriter = new PrintWriter(new File(TRACKER_FILE));
+            campusFoodPlace.save(printWriter);
+        } catch (FileNotFoundException e) {
+            fail();
+        }
+    }
 }
