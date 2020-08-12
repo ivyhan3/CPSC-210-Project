@@ -31,18 +31,18 @@ to the tracker.
 ### Phase 4: Task 2:
 - To make the CampusFoodPlace class robust, I added a NotProperRatingException checked exception to the 
 setRating() method. This exception is thrown if a rating is not in the range 0-5.
--In the CampusFoodPlaceTest class, I added two Tests for when the rating is proper and exception is 
-not expected as well as for when the rating is improper and exception is expected.
+- In the CampusFoodPlaceTest class, I added two tests for 2 cases: when the rating is proper (exception unexpected) and 
+when the rating is improper (exception expected).
 
 ### Phase 4: Task 3:
 1. Refactored two for-loops in loadFoodPlaces() to increase readability and improve cohesion as it was difficult
 to understand the function of the for-loops inside the method. Also refactored the CampusFoodApp constructor to 
 make a new method called initInput which initializes the five input fields of the tracker as well as a createButtonPanel 
-method which groups all the code related to making a button panel. This reduced the crowding of code within my constructor 
-and increases readability.
+method which groups all the code related to making a button panel. This reduced the crowding of code within my CampusFoodApp 
+constructor, therefore increasing readability.
 
 2. Made a new class called SoundPlayer and removed the playSound() method in AddListener class to 
-improve cohesion of the AddListener class and to follow the Single Responsibility Principle. Since this class is composed of methods that deals with adding 
-campus food places to the tracker, the playSound() lowered cohesion by diverting focus to two different tasks. AddListener 
+improve cohesion of the AddListener class and to follow the Single Responsibility Principle. Since this class is composed of methods that deal with adding 
+campus food places to the tracker, the playSound() method lowered cohesion by diverting focus to two different tasks. After making improvements, AddListener 
 now calls the SoundPlayer within ActionPerformed whenever the Add button is pressed.
 ~~~~ 
