@@ -88,6 +88,7 @@ public class CampusFoodPlaceTracker implements Saveable {
         return foodPlaces.get(index);
     }
 
+    // EFFECT: saves all the campus food places in a list of food places
     @Override
     public void save(PrintWriter printWriter) {
         for (CampusFoodPlace cfp : foodPlaces) {
